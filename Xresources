@@ -1,0 +1,78 @@
+! special
+#define FOREGROUND   #f0f0f0
+#define BACKGROUND   #151515
+#define CURSORCOLOR  #f0f0f0
+
+!define BLACK
+#define COLOR0       #151515
+#define COLOR8       #2b2b2b
+
+!define RED
+#define COLOR1       #cc241d
+#define COLOR9       #fb4934
+
+!define GREEN
+#define COLOR2       #98971a
+#define COLOR10      #b8bb26
+
+!define YELLOW
+#define COLOR3       #d79921
+!#define COLOR11      #fabd2f
+#define COLOR11      #ffae00
+
+!define BLUE
+#define COLOR4       #458588
+#define COLOR12      #83a598
+
+!define MAGENTA
+#define COLOR5       #b16286
+#define COLOR13      #d3869b
+
+!define CYAN
+#define COLOR6       #689d6a
+#define COLOR14      #8ec07c
+
+!define WHITE
+#define COLOR7       #a89984
+#define COLOR15      #ebdbb2
+
+! special
+*.foreground:   FOREGROUND
+*.background:   BACKGROUND
+*.cursorColor:  CURSORCOLOR
+
+! black
+*.color0:       COLOR0
+*.color8:       COLOR8
+
+! red
+*.color1:       COLOR1
+*.color9:       COLOR9
+
+! green
+*.color2:       COLOR2
+*.color10:      COLOR10
+
+! yellow
+*.color3:       COLOR3
+*.color11:      COLOR11
+
+! blue
+*.color4:       COLOR4
+*.color12:      COLOR12
+
+! magenta
+*.color5:       COLOR5
+*.color13:      COLOR13
+
+! cyan
+*.color6:       COLOR6
+*.color14:      COLOR14
+
+! white
+*.color7:       COLOR7
+*.color15:      COLOR15
+
+!primary and secondary colors
+*.primary:      COLOR11
+*.secondary:    COLOR15

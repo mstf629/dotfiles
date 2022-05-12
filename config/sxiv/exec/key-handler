@@ -1,0 +1,10 @@
+#!/bin/sh
+
+while read file
+do
+    case "$1" in
+        "w") feh --bg-scale "$file" ;;
+        "W") wal -q -i "$file" ;;
+        "R") rm $file ;;
+    esac
+done
