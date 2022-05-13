@@ -1,6 +1,4 @@
 #setting up some variables
-#hadena 3dadaty mahensh bta3at chaina NoRMaNxLLy
-#these are not NoRMaNxLLy dotfiles 
 
 set $mod Mod4
 set $terminal x-terminal-emulator
@@ -81,12 +79,12 @@ set_from_resource   $blue       color4      color12
 set_from_resource   $magenta    color5      color13
 set_from_resource   $cyan       color6      color14
 set_from_resource   $white      color7      color15
-set_from_resource   $primary    primary     color15 
+set_from_resource   $primary    primary     color1 
 set_from_resource   $secondary  secondary   color15
 
 
 # class                 border      backgr      text        indicator     child_border
-client.focused          $primary    $bg         $fg         $primary      $red
+client.focused          $primary    $bg         $fg         $primary      $primary
 client.focused_inactive $bg         $bg         $fg         $bg           $gray  
 client.unfocused        $gray       $bg         $secondary  $bg           $gray
 client.urgent           #2f343a     #900000     #ffffff     #900000       #900000
@@ -100,7 +98,7 @@ bar {
     separator_symbol " -- " 
     #mode hide
     modifier $mod+mod1
-    position top
+    position top 
 # font -misc-fixed-medium-r-normal--13-120-75-75-C-70-iso10646-1
 
     colors {
@@ -108,7 +106,7 @@ bar {
         statusline $fg   
         separator  $primary
 #                          Border       background      text
-        focused_workspace  $bg          $primary        $fg     
+        focused_workspace  $bg          $primary        $fg  
         active_workspace   $primary     $primary        $fg
         inactive_workspace $gray        $gray           $fg    
         #urgent_workspace   #2f343a      #900000         #000000
