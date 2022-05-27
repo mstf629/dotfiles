@@ -230,7 +230,7 @@ bindsym XF86RFKill exec wifi toggle
 
 # keybinds for starting something..
 bindsym Print  exec $nsi xfce4-screenshooter
-bindsym $mod+d exec $nsi dmenu_run -l 5 -p "run:"
+bindsym $mod+d exec $nsi dmenu_run -sb "$primary" -l 5 -p "run:" 
 bindsym $mod+Return exec $nsi $terminal
 bindsym $mod+Home exec $nsi pcmanfm
 bindsym $mod+Ctrl+1 exec $nsi $terminal -e htop 

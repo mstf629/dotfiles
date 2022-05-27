@@ -49,8 +49,6 @@ Plug 'junegunn/fzf.vim'
 Plug 'chrisbra/Colorizer'
 Plug 'junegunn/goyo.vim'
 Plug 'morhetz/gruvbox'
-"python autocomplete
-Plug 'davidhalter/jedi-vim'
 "this plugs for snippets
 Plug 'honza/vim-snippets'
 Plug 'SirVer/ultisnips'

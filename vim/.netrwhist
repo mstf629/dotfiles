@@ -1,5 +1,8 @@
 let g:netrw_dirhistmax  =10
-let g:netrw_dirhistcnt =6
+let g:netrw_dirhistcnt =9
+let g:netrw_dirhist_9='/home/mustafa/project/python/scraping/__pycache__'
+let g:netrw_dirhist_8='/home/mustafa/mydotfiles/vim/plugged/goyo.vim'
+let g:netrw_dirhist_7='/home/mustafa/mydotfiles/vim/plugged/ultisnips'
 let g:netrw_dirhist_6='/home/mustafa/zebala'
 let g:netrw_dirhist_5='/home/mustafa/olddotfiles'
 let g:netrw_dirhist_4='/home/mustafa/project/gitproject/mydotfiles/test'
@@ -7,6 +10,3 @@ let g:netrw_dirhist_3='/home/mustafa/project/dotfiles/config'
 let g:netrw_dirhist_2='/home/mustafa/project'
 let g:netrw_dirhist_1='/var/lib/git'
 let g:netrw_dirhist_0='/var/lib'
-let g:netrw_dirhist_9='/var'
-let g:netrw_dirhist_8='/var/local'
-let g:netrw_dirhist_7='/var'
