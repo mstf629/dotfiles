@@ -25,7 +25,7 @@ set  sidescroll=999 sidescrolloff=999
 nnoremap <leader>g :Goyo<CR>
 
 "fzf
-source /usr/share/doc/fzf/examples/fzf.vim
+"source /usr/share/doc/fzf/examples/fzf.vim
 nnoremap <leader>f :FZF<CR>
 nnoremap <leader>b :Buffers<CR>
 

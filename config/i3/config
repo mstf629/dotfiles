@@ -1,7 +1,7 @@
 #setting up some variables
 
 set $mod Mod4
-set $terminal x-terminal-emulator
+set $terminal xfce4-terminal 
 set $nsi --no-startup-id
 set $scripts ~/Scripts
 
@@ -249,10 +249,10 @@ bindsym XF86MonBrightnessDown exec $nsi light -U 5% ; exec $nsi notify-send -t 2
 #bindsym XF86AudioRaiseVolume exec $nsi pulsemixer --change-volume +5 && pkill -RTMIN+10 i3blocks
 #bindsym XF86AudioLowerVolume exec $nsi pulsemixer --change-volume -5 && pkill -RTMIN+10 i3blocks
 #bindsym XF86AudioMute exec $nsi pulsemixer --toggle-mute && pkill -RTMIN+10 i3blocks
-bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +5%
-bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ -5%
-bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ toggle
-bindsym XF86AudioMicMute exec --no-startup-id pactl set-source-mute @DEFAULT_SOURCE@ toggle 
+bindsym XF86AudioRaiseVolume exec $nsi pactl set-sink-volume @DEFAULT_SINK@ +5%
+bindsym XF86AudioLowerVolume exec $nsi pactl set-sink-volume @DEFAULT_SINK@ -5%
+bindsym XF86AudioMute exec $nsi pactl set-sink-mute @DEFAULT_SINK@ toggle
+bindsym XF86AudioMicMute exec $nsi pactl set-source-mute @DEFAULT_SOURCE@ toggle  
 
 #dual monitor
 bindsym $mod+shift+n move workspace to output right
