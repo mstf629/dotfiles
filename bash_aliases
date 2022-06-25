@@ -13,6 +13,7 @@ alias du='du -h --block-size=M'
 alias grep='grep --color=auto'
 
 alias lss='exa -l --color=auto --group-directories-first --icons'
+alias lssa='exa -l -a --color=auto --group-directories-first --icons'
 alias startx='startx &> /dev/null'
 alias cc='file=$(find $HOME/dotfiles/* -not -path "*.git*" -type f | fzf) && vi $file ; unset file'
 [ -d $HOME/Scripts ] && alias SS='file=$(find $HOME/Scripts ! -path "*.git*" -type f | fzf) && vi $file ; unset file'

@@ -57,4 +57,5 @@ export LESSHISTFILE="/dev/null"     #lesshst file -_-
 [ -f /usr/share/doc/fzf/examples/key-bindings.bash ] && . /usr/share/doc/fzf/examples/key-bindings.bash
 
 #bind '"\C-p": "\C-e\C-u xclip -sel clipboard -i <<"EOF"\n\C-y\nEOF\n\C-y"'
+PATH=$PATH:~/.local/bin
 
