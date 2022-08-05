@@ -1,5 +1,6 @@
 let g:netrw_dirhistmax  =10
-let g:netrw_dirhistcnt =0
+let g:netrw_dirhistcnt =1
+let g:netrw_dirhist_1='/home/mustafa/.cache/wal'
 let g:netrw_dirhist_0='/home/mustafa/workwithenv/bin'
 let g:netrw_dirhist_9='/home/mustafa/workwithenv/include'
 let g:netrw_dirhist_8='/home/mustafa/.local/share/qutebrowser'
@@ -9,4 +10,3 @@ let g:netrw_dirhist_5='/home/mustafa/.tor'
 let g:netrw_dirhist_4='/home/mustafa/.local/lib/python3.9/site-packages/scrapy'
 let g:netrw_dirhist_3='/home/mustafa/project/hello/venv/lib'
 let g:netrw_dirhist_2='/home/mustafa/project/hello/hello/spiders'
-let g:netrw_dirhist_1='/home/mustafa/project/hello/hello'

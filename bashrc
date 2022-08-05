@@ -59,3 +59,4 @@ export LESSHISTFILE="/dev/null"     #lesshst file -_-
 #bind '"\C-p": "\C-e\C-u xclip -sel clipboard -i <<"EOF"\n\C-y\nEOF\n\C-y"'
 PATH=$PATH:~/.local/bin
 
+cat ~/.cache/wal/sequences
