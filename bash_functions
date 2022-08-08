@@ -8,12 +8,6 @@ ansic() {
     for x in  0 1; do for i in {0..7}; do printf "\e[48;5;$((i+x*8))m%${width}d\e[0m" $((i+x*8));done;echo;done
 }
 #-----------------------------------------------------------------
-chth(){
-    if [[ -f scripts/chth/main.py ]]; then
-        echo hello
-    fi
-
-}
 
 
 
