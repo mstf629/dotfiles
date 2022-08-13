@@ -1,32 +1,24 @@
 #setting up some variables
-
 set $mod Mod4
 set $terminal xfce4-terminal 
 set $nsi --no-startup-id
-set $scripts ~/Scripts
-
-# Font for window titles. Will also be used by the bar unless a different font
-# is used in the bar {} block below.
-#font pango:monospace Ubuntu Mono 12
+#Font============================
 font pango: JetBrains Mono Bold 8
-
-# Use Mouse+$mod to drag floating windows to their wanted position
-floating_modifier $mod
-
+#=====================================================KEYBIND===========================================================================
+# restart i3 
+bindsym $mod+Shift+r restart
+#reload i3
+bindsym $mod+r reload
 # kill focused window
 bindsym $mod+Escape kill
+#you know why you did this ^_^
+bindsym $mod+x exec i3lock -c 080808 
 
-# change focus
+#change focus
 bindsym $mod+h focus left
 bindsym $mod+j focus down
 bindsym $mod+k focus up
 bindsym $mod+l focus right
-
-# alternatively, you can use the cursor keys:
-#bindsym $mod+Left focus left
-#bindsym $mod+Down focus down
-#bindsym $mod+Up focus up
-#bindsym $mod+Right focus right
 
 # move focused window
 bindsym $mod+Shift+h move left
@@ -34,19 +26,36 @@ bindsym $mod+Shift+j move down
 bindsym $mod+Shift+k move up
 bindsym $mod+Shift+l move right
 
-# alternatively, you can use the cursor keys:
-#bindsym $mod+Shift+Left move left
-#bindsym $mod+Shift+Down move down
-#bindsym $mod+Shift+Up move up
-#bindsym $mod+Shift+Right move right
+#fullscreen
+bindsym $mod+f fullscreen toggle
 
-#..
-popup_during_fullscreen smart
+#tiling/floating window
+bindsym $mod+Shift+space floating toggle 
 
-# restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
-bindsym $mod+Shift+r restart
-#reload i3
-bindsym $mod+r reload
+# change focus between tiling / floating windows
+bindsym $mod+space focus mode_toggle
+ 
+#hide i3bar
+bindsym $mod+b bar mode toggle
+
+
+#run dmenu/terminal/floating-terminal
+bindsym $mod+d exec $nsi dmenu_run -sb "$primary" -l 5 -p "run:" 
+bindsym $mod+Return exec $nsi $terminal
+bindsym $mod+u exec $nsi $terminal --title dropdown
+
+#Screen brightness controls
+bindsym XF86MonBrightnessUp exec $nsi light -A 5% ; exec $nsi notify-send -t 250 $(light)
+bindsym XF86MonBrightnessDown exec $nsi light -U 5% ; exec $nsi notify-send -t 250 $(light)
+
+#volume and sound control
+bindsym XF86AudioRaiseVolume exec $nsi pactl set-sink-volume @DEFAULT_SINK@ +5%
+bindsym XF86AudioLowerVolume exec $nsi pactl set-sink-volume @DEFAULT_SINK@ -5%
+bindsym XF86AudioMute exec $nsi pactl set-sink-mute @DEFAULT_SINK@ toggle
+bindsym XF86AudioMicMute exec $nsi pactl set-source-mute @DEFAULT_SOURCE@ toggle  
+
+#wifi switcher
+bindsym XF86RFKill exec wifi toggle
 
 #shutdown, restart, lock
 set $systemctl choose wisely: [r]estart, [s]uspend, [l]ock, [e]xit, [p]oweroff
@@ -61,24 +70,55 @@ mode "$systemctl"{
         bindsym Escape mode "default"
         bindsym Return mode "default"
 }
+#resizing focused window
+set $resize :resizing
+bindsym $mod+apostrophe mode "$resize"
+mode "$resize" {
+    bindsym shift+l resize grow right 10 px
+        bindsym shift+k resize grow up 10 px
+        bindsym shift+j resize grow down 10 px
+        bindsym shift+h resize grow left 10 px
+        bindsym h resize shrink right 10 px
+        bindsym j resize shrink up 10 px
+        bindsym k resize shrink down 10 px
+        bindsym l resize shrink left 10 px
 
+        bindsym Return mode "default"
+        bindsym Escape mode "default"
+}
+#=====================================================WINDOW-SRTUCT======================================================================
 #focus follow mouse no ^_^
 focus_follows_mouse no
 
+# Use Mouse+$mod to drag floating windows to their wanted position
+floating_modifier $mod
 
-# i'm done with this pywal thing
-# just use your own color 0_0
+#..
+popup_during_fullscreen smart
+
+#default orientaion of the windows
+default_orientation vertical
+
+# remove the titlebar for the windows
+for_window [class=".*"] border pixel 2
+
+#make some windows floating
+for_window [class="mpv|Sxiv"] floating enable, fullscreen, resize set 1024 480, move position center
+for_window [title="dropdown"] floating enable 
+
+
+#set color in varbiles
 set_from_resource   $bg         background
 set_from_resource   $fg         foreground
 set_from_resource   $black      color0     
 set_from_resource   $gray       color8     
-set_from_resource   $red        color1
-set_from_resource   $green      color10     color8
-set_from_resource   $yellow     color11     color3
-set_from_resource   $blue       color4      color12
-set_from_resource   $magenta    color5      color13
-set_from_resource   $cyan       color6      color14
-set_from_resource   $white      color7      color15
+set_from_resource   $color1     color1      color9
+set_from_resource   $color2     color2      color10
+set_from_resource   $color3     color3      color11
+set_from_resource   $color4     color4      color12
+set_from_resource   $color5     color5      color13
+set_from_resource   $color6     color6      color14
+set_from_resource   $color7     color7      color15
 set_from_resource   $primary    primary     color1 
 set_from_resource   $secondary  secondary   color15
 
@@ -114,51 +154,27 @@ bar {
         binding_mode       $primary     $primary        $bg 
     }
 }
-#----------------------------------WINDOWS-------------------------------------
-#default orientaion of the windows
-default_orientation vertical
 
-# remove the titlebar for the windows
-for_window [class=".*"] border pixel 2
 
-#assign windows to workspaces
-assign [class="Firefox"] $ws2
-assign [class="qutebrowser"] $ws2
-assign [class="mpv"] $ws3
-assign [class="Sxiv"] $ws3
-assign [class="Zathura"] $ws4
-assign [class="Anki"] $ws4
-assign [class="PacketTracer"] $ws5
 
-#make some windows floating
-#for_window [class=".*"] floating enable, move position center
-#for_window [class="Firefox"] floating disable
-for_window [class="mpv|Sxiv"] floating enable, move absolute position center
-for_window [class="Zathura"] workspace $ws4
-for_window [class="Pcmanfm"] floating enable, resize set 600 700
-for_window [workspace=$ws5] floating disable
-for_window [class="TelegramDesktop"] floating enable, resize set 520 720
-for_window [window_type="dialog"] floating enable
-for_window [class="Gcolor3"] floating enable
-
-# PACKETTRACER
-for_window[title="PDU Information at Device:.*"] floating enable
-
-#---------------------------------WORKSPACES-----------------------------------
+#=====================================================WORKSPACE=========================================================================
 set $ws1 1:Terminals
 set $ws2 2:Browser
-set $ws3 3:Media
-set $ws4 4
-set $ws5 5:PacketTracer
-set $ws6 6
-set $ws7 7
-set $ws8 8
-set $ws9 9
-set $ws10 10
+set $ws3 3:Doc
+set $ws4 4:Media
+set $ws5 5:
+set $ws6 6:
+set $ws7 7:
+set $ws8 8:
+set $ws9 9:
+
+#assign windows to workspaces
+assign [class="qutebrowser"] $ws2
+assign [class="Zathura"] $ws3
+assign [class="mpv"] $ws4
+assign [class="Sxiv"] $ws4
 
 # switch to workspace
-bindsym $mod+period workspace next
-bindsym $mod+comma workspace prev
 bindsym $mod+1 workspace $ws1
 bindsym $mod+2 workspace $ws2
 bindsym $mod+3 workspace $ws3
@@ -170,8 +186,6 @@ bindsym $mod+8 workspace $ws8
 bindsym $mod+9 workspace $ws9
 bindsym $mod+0 workspace $ws10
 
-#enable back and forth 
-#workspace_auto_back_and_forth yes
 
 # move focused container to workspace
 bindsym $mod+Shift+1 move container to workspace $ws1
@@ -196,111 +210,7 @@ bindsym $mod+i			gaps inner current minus1
 bindsym $mod+Shift+i		gaps inner current plus 1
 bindsym $mod+o			gaps outer current minus1
 bindsym $mod+Shift+o		gaps outer current plus 1
-#smart_gaps on
-#Activate smart borders (always)
-#smart_borders on
 
-#-------------------------------BINDING KEYS----------------------------------
-# change container layout (stacked, tabbed, toggle split)
-bindsym $mod+slash layout toggle tabbed stacked split
-
-# change focus between tiling / floating windows
-bindsym $mod+space focus mode_toggle
-
-# toggle tiling / floating
-bindsym $mod+Shift+space floating toggle
-
-# enter fullscreen mode for the focused container
-bindsym $mod+f fullscreen toggle
-
-# focus the parent container
-bindsym $mod+a focus parent
-
-# focus the child container
-bindsym $mod+Shift+a focus child
-
-#hide i3bar
-bindsym $mod+b bar mode toggle 
-
-# opening up a config file 
-bindsym $mod+BackSpace exec ~/Scripts/dmconf 
-
-#wifi switcher
-bindsym XF86RFKill exec wifi toggle
-
-# keybinds for starting something..
-bindsym Print  exec $nsi xfce4-screenshooter
-bindsym $mod+d exec $nsi dmenu_run -sb "$primary" -l 5 -p "run:" 
-bindsym $mod+Return exec $nsi $terminal
-bindsym $mod+Home exec $nsi pcmanfm
-bindsym $mod+Ctrl+1 exec $nsi $terminal -e htop 
-bindsym $mod+F12 exec /home/haman/Scripts/wifi-connect.sh
-
-#counter strike style
-bindsym Mod1+q workspace back_and_forth
-#
-bindsym $mod+t split toggle
-
-# Screen brightness controls
-bindsym XF86MonBrightnessUp exec $nsi light -A 5% ; exec $nsi notify-send -t 250 $(light)
-bindsym XF86MonBrightnessDown exec $nsi light -U 5% ; exec $nsi notify-send -t 250 $(light)
-
-#volume and sound control
-#bindsym XF86AudioRaiseVolume exec $nsi pulsemixer --change-volume +5 && pkill -RTMIN+10 i3blocks
-#bindsym XF86AudioLowerVolume exec $nsi pulsemixer --change-volume -5 && pkill -RTMIN+10 i3blocks
-#bindsym XF86AudioMute exec $nsi pulsemixer --toggle-mute && pkill -RTMIN+10 i3blocks
-bindsym XF86AudioRaiseVolume exec $nsi pactl set-sink-volume @DEFAULT_SINK@ +5%
-bindsym XF86AudioLowerVolume exec $nsi pactl set-sink-volume @DEFAULT_SINK@ -5%
-bindsym XF86AudioMute exec $nsi pactl set-sink-mute @DEFAULT_SINK@ toggle
-bindsym XF86AudioMicMute exec $nsi pactl set-source-mute @DEFAULT_SOURCE@ toggle  
-
-#dual monitor
-bindsym $mod+shift+n move workspace to output right
-bindsym $mod+shift+p move workspace to output left
-
-#resizing
-bindsym $mod+ctrl+l resize grow right 10 px
-bindsym $mod+ctrl+k resize grow up 10 px
-bindsym $mod+ctrl+j resize grow down 10 px
-bindsym $mod+ctrl+h resize grow left 10 px
-bindsym $mod+mod1+h resize shrink right 10 px
-bindsym $mod+mod1+j resize shrink up 10 px
-bindsym $mod+mod1+k resize shrink down 10 px
-bindsym $mod+mod1+l resize shrink left 10 px
-
-#youtube stuff
-bindsym $mod+y exec $nsi youtube_handler.sh
-#bindsym --release $mod+ctrl+y exec mpv --ytdl-format=18 $(xclip -selection clipboard -o)
-
-#you know why you did this ^_^
-bindsym $mod+x exec i3lock -c 080808 
-#-----------------------------------------------------------------------------
-
-#testing
-for_window [title="dropdown"] floating enable, move scratchpad, border pixel 2
-exec $nsi xfce4-terminal --title dropdown 
-bindsym $mod+u [title="dropdown"] scratchpad show, resize set 1024 480, move position center
-
-set $resize :resizing
-bindsym $mod+apostrophe mode "$resize"
-mode "$resize" {
-    bindsym shift+l resize grow right 10 px
-        bindsym shift+k resize grow up 10 px
-        bindsym shift+j resize grow down 10 px
-        bindsym shift+h resize grow left 10 px
-        bindsym h resize shrink right 10 px
-        bindsym j resize shrink up 10 px
-        bindsym k resize shrink down 10 px
-        bindsym l resize shrink left 10 px
-
-        bindsym Return mode "default"
-        bindsym Escape mode "default"
-}
-
-# idk
-focus_on_window_activation urgent
-
-# testing xttc.
-bindsym $mod+bracketright exec $nsi xttc.awk -i inplace -v change="up" $HOME/.config/xfce4/terminal/terminalrc
-bindsym $mod+bracketleft exec $nsi xttc.awk -i inplace -v change="down" $HOME/.config/xfce4/terminal/terminalrc
+ 
+ 
 
