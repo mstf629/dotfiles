@@ -45,8 +45,8 @@ bindsym $mod+Return exec $nsi $terminal
 bindsym $mod+u exec $nsi $terminal --title dropdown
 
 #Screen brightness controls
-bindsym XF86MonBrightnessUp exec $nsi light -A 5% ; exec $nsi notify-send -t 250 $(light)
-bindsym XF86MonBrightnessDown exec $nsi light -U 5% ; exec $nsi notify-send -t 250 $(light)
+bindsym XF86MonBrightnessUp exec $nsi xbacklight -inc 5
+bindsym XF86MonBrightnessDown exec $nsi xbacklight -dec 5
 
 #volume and sound control
 bindsym XF86AudioRaiseVolume exec $nsi pactl set-sink-volume @DEFAULT_SINK@ +5%
