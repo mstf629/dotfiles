@@ -15,9 +15,7 @@ alias grep='grep --color=auto'
 alias lss='exa -l --color=auto --group-directories-first --icons'
 alias lssa='exa -l -a --color=auto --group-directories-first --icons'
 alias startx='startx &> /dev/null'
-alias cc='file=$(find $HOME/dotfiles/* -not -path "*.git*" -type f | fzf) && vi $file ; unset file'
-[ -d $HOME/Scripts ] && alias SS='file=$(find $HOME/Scripts ! -path "*.git*" -type f | fzf) && vi $file ; unset file'
-# neomutt always miss up wal colors..
-#[ -f "$HOME/.cache/wal/sequences" ] && alias neomutt=' (sleep 0.100 ; cat ~/.cache/wal/sequences) & neomutt'
-alias neomutt='TERM=screen-256color neomutt'
 alias wget="wget --no-hsts"
+
+alias arup='arduino-cli upload -b arduino:avr:uno -p /dev/ttyACM0 '
+alias arco='arduino-cli compile -b arduino:avr:uno '
