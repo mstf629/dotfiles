@@ -17,7 +17,6 @@
 
 !define YELLOW
 #define COLOR3       #956290
-!#define COLOR11      #fabd2f
 #define COLOR11      #956290
 
 !define BLUE
