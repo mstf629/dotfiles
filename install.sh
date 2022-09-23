@@ -40,5 +40,5 @@ do
     ln -s $FILE_PATH $HOME/.config/${FILE}
 done
 
-echo "fuck you"
+echo "done :)"
     
