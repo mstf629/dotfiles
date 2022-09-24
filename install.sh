@@ -10,6 +10,7 @@ mkdir -p ~/olddotfiles/config
 #this will find the files "/home/user/file" and print the basename "file"
 FILES=$(find * -maxdepth 0 \! -name config \! -name install.sh \! -name README.md)
 
+
 for FILE in $FILES
 do
     FILE_PATH=$(realpath $FILE)
