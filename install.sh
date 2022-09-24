@@ -40,5 +40,4 @@ do
     ln -s $FILE_PATH $HOME/.config/${FILE}
 done
 
-echo "done :)"
     
