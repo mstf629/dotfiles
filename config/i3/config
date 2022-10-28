@@ -170,6 +170,7 @@ set $ws9 9:
 
 #assign windows to workspaces
 assign [class="qutebrowser"] $ws2
+assign [class="firefox"] $ws2
 assign [class="Zathura"] $ws3
 assign [class="mpv"] $ws4
 assign [class="Sxiv"] $ws4

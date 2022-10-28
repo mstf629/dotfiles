@@ -1,0 +1,21 @@
+#!/usr/bin/python3
+from math import *
+import sys
+
+while True:
+    try:
+       prametar =input('>>>')
+       if prametar == 'exit':
+           break
+       print(eval(prametar))
+    except NameError :
+        print('SyntaxError')
+    except SyntaxError:
+        print('SyntaxError')
+    except ZeroDivisionError:
+        print("You can't divide by zero")
+    except(KeyboardInterrupt,EOFError):
+        print("\nthanks for use my prograg")
+        sys.exit()
+        
+
