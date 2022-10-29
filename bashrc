@@ -1,9 +1,6 @@
 [ -z "$PS1" ] && return
 #--------------------  variables  ----------------------------------
 
-export MYREPOS="${HOME}/repos/normanxlly"
-export DOTFILES="${MYREPOS}/dotfiles"
-export CDPATH=".:${MYREPOS}"
 export EDITOR="vim"
 export LESSHISTFILE="/dev/null"
 
@@ -25,31 +22,14 @@ alias cp='cp -v'
 alias df='df -h'
 alias du='du -h --block-size=M'
 alias grep='grep --color=auto'
-#alias lss='exa -l --color=auto --group-directories-first'
-alias lss='ls -l --color=auto --group-directories-first'
+alias lss='exa -l --color=auto --group-directories-first'
+alias lssa='exa -la --color=auto --group-directories-first'
 alias startx='startx &> /dev/null'
 alias neomutt='TERM=screen-256color neomutt'
 alias wget="wget --no-hsts"
 alias ip="ip --color=auto"
 
 #--------------------  Functions  -----------------------------------
-
-update_repos() {
-    local currentdir=`pwd`
-    clear
-    for repo in $HOME/{dotfiles,Scripts,.config/qutebrowser}; do {
-        cd $repo;
-        echo -e "### $repo ###\n";
-        git add . ;
-        if git commit -a -m "updating..."; then
-            git push;
-        fi
-        echo -e "------------------------------------------------\n";
-    } 
-done
-cd $currentdir
-}
-
 _ps1() {
     local branch="$(git branch --show-current 2>/dev/null)"
     PS1="\[${Co[12]}\]\w \[${Co[13]}\]${branch} \[${Co[11]}\]➜\[${Co[16]}\] "
@@ -74,22 +54,4 @@ if command -v dircolors > /dev/null 2>&1; then
         eval "$(dircolors -b "$HOME/.config/dircolors")"
     fi
 fi
-
-# fzf
-# the directories are not the same on Debian and Arch.
-fzfDir="/usr/share/doc/fzf/examples"
-if [[ -d $fzfDir ]]; then
-    fzfKeys="${fzfDir}/key-bindings.bash"
-    fzfComp="${fzfDir}/completion.bash"
-else
-    fzfDir="/usr/share/fzf"
-    if [[ -d $fzfDir ]]; then
-        fzfKeys="${fzfDir}/key-bindings.bash"
-        fzfComp="${fzfDir}/completion.bash"
-    fi
-fi
-[[ -n ${fzfKeys} ]] && . "$fzfKeys"
-[[ -n ${fzfComp} ]] && . "$fzfComp"
-
-#------------------ testing --------------------
 
