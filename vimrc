@@ -1,41 +1,26 @@
 let mapleader=" "
 
-"displaying text options
-set nu
-set rnu
-set nuw =2
-set nowrap
-set shiftwidth=4 softtabstop=4 tabstop=4 expandtab
-
-
-"highlighting options
-"set bg =dark
-set hlsearch
-"set tgc
-set ignorecase
-set incsearch
-set slm="cmd"
-
-
-"windows options
-set icon
-set title
-set noru
-set scr=2
-
-
-"command line editing 
-set hi=200
-set wildmode=full
-set wmnu 
-set fic
-set wic 
-set cwh =8
-"set backup
+"""""""""""""""""""""""""""""""""
+"""""""########SETS#######""""""
+"""""""""""""""""""""""""""""""
+set number "number of lines
+set relativenumber "number the current line
+syntax on 
+colorscheme industry 
+set tabstop=4 "set four spaces for tap
+set autoindent "make auto indent 
+set expandtab "swap tap to spaces
+set hlsearch "make highlighting for search
+set ignorecase "ignore case when searching
+set encoding=utf-8 
+set laststatus =2
+set wildmenu "make window for cmd complition
+set history =1000
+set noswapfile
 
 
 """""""""""""""""""""""""""""""""
-"#######PLUGINS#######
+"""""#######PLUGINS#######""""""
 """""""""""""""""""""""""""""""
 call plug#begin('~/.vim/plugged')
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
@@ -45,3 +30,4 @@ Plug 'chrisbra/Colorizer'
 Plug 'honza/vim-snippets'
 Plug 'SirVer/ultisnips'
 call plug#end()
+
