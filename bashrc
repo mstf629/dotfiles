@@ -15,7 +15,7 @@ HISTSIZE=1000
 HISTFILESIZE=2000
 
 #--------------------  Aliases  -------------------------------------
-
+alias dl='cd /home/mustafa/Downloads/'
 alias ..='cd ..'
 alias free='free -h'
 alias cp='cp -v'
@@ -28,6 +28,7 @@ alias startx='startx &> /dev/null'
 alias neomutt='TERM=screen-256color neomutt'
 alias wget="wget --no-hsts"
 alias ip="ip --color=auto"
+alias pacman='pacman --color=auto'
 
 #--------------------  Functions  -----------------------------------
 _ps1() {
