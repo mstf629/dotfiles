@@ -16,6 +16,7 @@ HISTFILESIZE=2000
 
 #--------------------  Aliases  -------------------------------------
 alias dl='cd /home/mustafa/Downloads/'
+alias vr='cd /usr/share/vim/vim90/doc'
 alias ..='cd ..'
 alias free='free -h'
 alias cp='cp -v'
