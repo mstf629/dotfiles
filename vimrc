@@ -24,17 +24,23 @@ set noswapfile
 """""""""""""""""""""""""""""""
 "open buffers window with fzf style
 nnoremap <leader>b :Buffers<CR>
+
 "open fzf
 nnoremap <leader>f :FZF<CR>
+
 "source vimrc 
-nnoremap <leader>r :source $MYVIMRC<CR> :silent nohl<CR> :echo 'source vimrc done :)'<CR> 
+nnoremap <leader>r :source $MYVIMRC<CR> :nohl<CR> :echo 'source vimrc done :)'<CR> 
+
 "change buffers next.pre
 nnoremap <C-n> :bnext <CR>
 nnoremap <C-p> :bprevious <CR>
+
 "clear hilights 
-map <C-l> :nohl<CR>
-map <leader>p :silent .!xclip -o -selection clipboard<CR>
-map <leader>y :silent !xclip -i -selection clipboard && .!xlip -o -selection clipboard<CR>
+map <leader>l :nohl<CR>
+
+"copy and paste
+map <leader>p :.!xclip -o -selection clipboard<CR>:echo '  ' <CR>
+map <leader>y :.!xclip -i -selection clipboard && xclip -o -selection clipboard<CR>:echo 'copy done :)' <CR>
 """""""""""""""""""""""""""""""""
 """""#######PLUGINS#######""""""
 """""""""""""""""""""""""""""""
@@ -46,4 +52,5 @@ Plug 'chrisbra/Colorizer'
 Plug 'honza/vim-snippets'
 Plug 'SirVer/ultisnips'
 call plug#end()
+"skdfjalsdf
 
