@@ -162,8 +162,8 @@ set $ws1 1:Terminals
 set $ws2 2:Browser
 set $ws3 3:Doc
 set $ws4 4:Media
-set $ws5 5:Emulater
-set $ws6 6:
+set $ws5 5:godot
+set $ws6 6:Emulater
 set $ws7 7:
 set $ws8 8:
 set $ws9 9:
@@ -174,8 +174,8 @@ assign [class="firefox"] $ws2
 assign [class="Zathura"] $ws3
 assign [class="mpv"] $ws4
 assign [class="Sxiv"] $ws4
-assign [class="PPSSPPSDL"] $ws5
-assign [class="pcsx2-qt"] $ws5
+assign [class="Godot"] $ws5
+assign [class="PPSSPPSDL"] $ws6
 
 # switch to workspace
 bindsym $mod+1 workspace $ws1
