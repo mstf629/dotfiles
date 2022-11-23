@@ -30,7 +30,7 @@ strings. Acts as input validation for parsePlaceholder function.
 Describes the syntax, but it is fairly lenient.
 
 The following pseudo regex has been reverse engineered from the
-implementation. It is overly strict, but better describes whats possible.
+implementation. It is overly strict, but better describes what's possible.
 As such it is not useful for validation, but rather to generate test
 cases for example.
 
@@ -100,15 +100,30 @@ type itemLine struct {
 	result   Result
 }
 
+type fitpad struct {
+	fit int
+	pad int
+}
+
 var emptyLine = itemLine{}
+
+type labelPrinter func(tui.Window, int)
 
 // Terminal represents terminal input/output
 type Terminal struct {
 	initDelay          time.Duration
 	infoStyle          infoStyle
+	separator          labelPrinter
+	separatorLen       int
 	spinner            []string
 	prompt             func()
 	promptLen          int
+	borderLabel        labelPrinter
+	borderLabelLen     int
+	borderLabelOpts    labelOpts
+	previewLabel       labelPrinter
+	previewLabelLen    int
+	previewLabelOpts   labelOpts
 	pointer            string
 	pointerLen         int
 	pointerEmpty       string
@@ -183,7 +198,7 @@ type Terminal struct {
 	prevLines          []itemLine
 	suppress           bool
 	sigstop            bool
-	startChan          chan bool
+	startChan          chan fitpad
 	killChan           chan int
 	slab               *util.Slab
 	theme              *tui.ColorTheme
@@ -439,6 +454,13 @@ func makeSpinner(unicode bool) []string {
 	return []string{`-`, `\`, `|`, `/`, `-`, `\`, `|`, `/`}
 }
 
+func evaluateHeight(opts *Options, termHeight int) int {
+	if opts.Height.percent {
+		return util.Max(int(opts.Height.size*float64(termHeight)/100.0), opts.MinHeight)
+	}
+	return int(opts.Height.size)
+}
+
 // NewTerminal returns new Terminal object
 func NewTerminal(opts *Options, eventBox *util.EventBox) *Terminal {
 	input := trimQuery(opts.Query)
@@ -465,7 +487,7 @@ func NewTerminal(opts *Options, eventBox *util.EventBox) *Terminal {
 		strongAttr = tui.AttrRegular
 	}
 	var renderer tui.Renderer
-	fullscreen := opts.Height.size == 0 || opts.Height.percent && opts.Height.size == 100
+	fullscreen := !opts.Height.auto && (opts.Height.size == 0 || opts.Height.percent && opts.Height.size == 100)
 	if fullscreen {
 		if tui.HasFullscreenRenderer() {
 			renderer = tui.NewFullscreenRenderer(opts.Theme, opts.Black, opts.Mouse)
@@ -475,24 +497,16 @@ func NewTerminal(opts *Options, eventBox *util.EventBox) *Terminal {
 		}
 	} else {
 		maxHeightFunc := func(termHeight int) int {
-			var maxHeight int
-			if opts.Height.percent {
-				maxHeight = util.Max(int(opts.Height.size*float64(termHeight)/100.0), opts.MinHeight)
-			} else {
-				maxHeight = int(opts.Height.size)
-			}
-
+			// Minimum height required to render fzf excluding margin and padding
 			effectiveMinHeight := minHeight
-			if previewBox != nil && (opts.Preview.position == posUp || opts.Preview.position == posDown) {
-				effectiveMinHeight *= 2
+			if previewBox != nil && opts.Preview.aboveOrBelow() {
+				effectiveMinHeight += 1 + borderLines(opts.Preview.border)
 			}
 			if opts.InfoStyle != infoDefault {
 				effectiveMinHeight--
 			}
-			if opts.BorderShape != tui.BorderNone {
-				effectiveMinHeight += 2
-			}
-			return util.Min(termHeight, util.Max(maxHeight, effectiveMinHeight))
+			effectiveMinHeight += borderLines(opts.BorderShape)
+			return util.Min(termHeight, util.Max(evaluateHeight(opts, termHeight), effectiveMinHeight))
 		}
 		renderer = tui.NewLightRenderer(opts.Theme, opts.Black, opts.Mouse, opts.Tabstop, opts.ClearOnExit, false, maxHeightFunc)
 	}
@@ -510,6 +524,7 @@ func NewTerminal(opts *Options, eventBox *util.EventBox) *Terminal {
 	t := Terminal{
 		initDelay:          delay,
 		infoStyle:          opts.InfoStyle,
+		separator:          nil,
 		spinner:            makeSpinner(opts.Unicode),
 		queryLen:           [2]int{0, 0},
 		layout:             opts.Layout,
@@ -540,6 +555,10 @@ func NewTerminal(opts *Options, eventBox *util.EventBox) *Terminal {
 		padding:            opts.Padding,
 		unicode:            opts.Unicode,
 		borderShape:        opts.BorderShape,
+		borderLabel:        nil,
+		borderLabelOpts:    opts.BorderLabel,
+		previewLabel:       nil,
+		previewLabelOpts:   opts.PreviewLabel,
 		cleanExit:          opts.ClearOnExit,
 		paused:             opts.Phony,
 		strong:             strongAttr,
@@ -572,7 +591,7 @@ func NewTerminal(opts *Options, eventBox *util.EventBox) *Terminal {
 		sigstop:            false,
 		slab:               util.MakeSlab(slab16Size, slab32Size),
 		theme:              opts.Theme,
-		startChan:          make(chan bool, 1),
+		startChan:          make(chan fitpad, 1),
 		killChan:           make(chan int),
 		tui:                renderer,
 		initFunc:           func() { renderer.Init() },
@@ -583,8 +602,104 @@ func NewTerminal(opts *Options, eventBox *util.EventBox) *Terminal {
 	// Pre-calculated empty pointer and marker signs
 	t.pointerEmpty = strings.Repeat(" ", t.pointerLen)
 	t.markerEmpty = strings.Repeat(" ", t.markerLen)
+	t.borderLabel, t.borderLabelLen = t.ansiLabelPrinter(opts.BorderLabel.label, &tui.ColBorderLabel, false)
+	t.previewLabel, t.previewLabelLen = t.ansiLabelPrinter(opts.PreviewLabel.label, &tui.ColBorderLabel, false)
+	if opts.Separator == nil || len(*opts.Separator) > 0 {
+		bar := "─"
+		if opts.Separator != nil {
+			bar = *opts.Separator
+		} else if !t.unicode {
+			bar = "-"
+		}
+		t.separator, t.separatorLen = t.ansiLabelPrinter(bar, &tui.ColSeparator, true)
+	}
 
 	return &t
+}
+
+func borderLines(shape tui.BorderShape) int {
+	switch shape {
+	case tui.BorderHorizontal, tui.BorderRounded, tui.BorderSharp, tui.BorderBold, tui.BorderDouble:
+		return 2
+	case tui.BorderTop, tui.BorderBottom:
+		return 1
+	}
+	return 0
+}
+
+// Extra number of lines needed to display fzf
+func (t *Terminal) extraLines() int {
+	extra := len(t.header0) + t.headerLines + 1
+	if !t.noInfoLine() {
+		extra++
+	}
+	return extra
+}
+
+func (t *Terminal) MaxFitAndPad(opts *Options) (int, int) {
+	_, screenHeight, marginInt, paddingInt := t.adjustMarginAndPadding()
+	padHeight := marginInt[0] + marginInt[2] + paddingInt[0] + paddingInt[2]
+	fit := screenHeight - padHeight - t.extraLines()
+	return fit, padHeight
+}
+
+func (t *Terminal) ansiLabelPrinter(str string, color *tui.ColorPair, fill bool) (labelPrinter, int) {
+	// Nothing to do
+	if len(str) == 0 {
+		return nil, 0
+	}
+
+	// Extract ANSI color codes
+	text, colors, _ := extractColor(str, nil, nil)
+	runes := []rune(text)
+
+	// Simpler printer for strings without ANSI colors or tab characters
+	if colors == nil && strings.IndexRune(str, '\t') < 0 {
+		length := runewidth.StringWidth(str)
+		if length == 0 {
+			return nil, 0
+		}
+		printFn := func(window tui.Window, limit int) {
+			if length > limit {
+				trimmedRunes, _ := t.trimRight(runes, limit)
+				window.CPrint(*color, string(trimmedRunes))
+			} else if fill {
+				window.CPrint(*color, util.RepeatToFill(str, length, limit))
+			} else {
+				window.CPrint(*color, str)
+			}
+		}
+		return printFn, len(text)
+	}
+
+	// Printer that correctly handles ANSI color codes and tab characters
+	item := &Item{text: util.RunesToChars(runes), colors: colors}
+	length := t.displayWidth(runes)
+	if length == 0 {
+		return nil, 0
+	}
+	result := Result{item: item}
+	var offsets []colorOffset
+	printFn := func(window tui.Window, limit int) {
+		if offsets == nil {
+			// tui.Col* are not initialized until renderer.Init()
+			offsets = result.colorOffsets(nil, t.theme, *color, *color, false)
+		}
+		for limit > 0 {
+			if length > limit {
+				trimmedRunes, _ := t.trimRight(runes, limit)
+				t.printColoredString(window, trimmedRunes, offsets, *color)
+				break
+			} else if fill {
+				t.printColoredString(window, runes, offsets, *color)
+				limit -= length
+			} else {
+				t.printColoredString(window, runes, offsets, *color)
+				break
+			}
+		}
+	}
+	return printFn, length
 }
 
 func (t *Terminal) parsePrompt(prompt string) (func(), int) {
@@ -725,22 +840,23 @@ func (t *Terminal) displayWidth(runes []rune) int {
 
 const (
 	minWidth  = 4
-	minHeight = 4
+	minHeight = 3
 )
 
 func calculateSize(base int, size sizeSpec, occupied int, minSize int, pad int) int {
 	max := base - occupied
+	if max < minSize {
+		max = minSize
+	}
 	if size.percent {
 		return util.Constrain(int(float64(base)*0.01*size.size), minSize, max)
 	}
 	return util.Constrain(int(size.size)+pad, minSize, max)
 }
 
-func (t *Terminal) resizeWindows() {
+func (t *Terminal) adjustMarginAndPadding() (int, int, [4]int, [4]int) {
 	screenWidth := t.tui.MaxX()
 	screenHeight := t.tui.MaxY()
-	t.prevLines = make([]itemLine, screenHeight)
-
 	marginInt := [4]int{}  // TRBL
 	paddingInt := [4]int{} // TRBL
 	sizeSpecToInt := func(index int, spec sizeSpec) int {
@@ -782,38 +898,55 @@ func (t *Terminal) resizeWindows() {
 			if idx == 3 {
 				extraMargin[idx] += 2
 			}
-		case tui.BorderRounded, tui.BorderSharp:
+		case tui.BorderRounded, tui.BorderSharp, tui.BorderBold, tui.BorderDouble:
 			extraMargin[idx] += 1 + idx%2
 		}
 		marginInt[idx] = sizeSpecToInt(idx, sizeSpec) + extraMargin[idx]
 	}
 
 	adjust := func(idx1 int, idx2 int, max int, min int) {
-		if max >= min {
-			margin := marginInt[idx1] + marginInt[idx2] + paddingInt[idx1] + paddingInt[idx2]
-			if max-margin < min {
-				desired := max - min
-				paddingInt[idx1] = desired * paddingInt[idx1] / margin
-				paddingInt[idx2] = desired * paddingInt[idx2] / margin
-				marginInt[idx1] = util.Max(extraMargin[idx1], desired*marginInt[idx1]/margin)
-				marginInt[idx2] = util.Max(extraMargin[idx2], desired*marginInt[idx2]/margin)
-			}
+		if min > max {
+			min = max
+		}
+		margin := marginInt[idx1] + marginInt[idx2] + paddingInt[idx1] + paddingInt[idx2]
+		if max-margin < min {
+			desired := max - min
+			paddingInt[idx1] = desired * paddingInt[idx1] / margin
+			paddingInt[idx2] = desired * paddingInt[idx2] / margin
+			marginInt[idx1] = util.Max(extraMargin[idx1], desired*marginInt[idx1]/margin)
+			marginInt[idx2] = util.Max(extraMargin[idx2], desired*marginInt[idx2]/margin)
 		}
 	}
 
-	previewVisible := t.isPreviewEnabled() && t.previewOpts.size.size > 0
 	minAreaWidth := minWidth
 	minAreaHeight := minHeight
-	if previewVisible {
+	if t.noInfoLine() {
+		minAreaHeight -= 1
+	}
+	if t.isPreviewVisible() {
+		minPreviewHeight := 1 + borderLines(t.previewOpts.border)
+		minPreviewWidth := 5
 		switch t.previewOpts.position {
 		case posUp, posDown:
-			minAreaHeight *= 2
+			minAreaHeight += minPreviewHeight
+			minAreaWidth = util.Max(minPreviewWidth, minAreaWidth)
 		case posLeft, posRight:
-			minAreaWidth *= 2
+			minAreaWidth += minPreviewWidth
+			minAreaHeight = util.Max(minPreviewHeight, minAreaHeight)
 		}
 	}
 	adjust(1, 3, screenWidth, minAreaWidth)
 	adjust(0, 2, screenHeight, minAreaHeight)
+
+	return screenWidth, screenHeight, marginInt, paddingInt
+}
+
+func (t *Terminal) resizeWindows() {
+	screenWidth, screenHeight, marginInt, paddingInt := t.adjustMarginAndPadding()
+	width := screenWidth - marginInt[1] - marginInt[3]
+	height := screenHeight - marginInt[0] - marginInt[2]
+
+	t.prevLines = make([]itemLine, screenHeight)
 	if t.border != nil {
 		t.border.Close()
 	}
@@ -832,8 +965,6 @@ func (t *Terminal) resizeWindows() {
 	// Reset preview version so that full redraw occurs
 	t.previewed.version = 0
 
-	width := screenWidth - marginInt[1] - marginInt[3]
-	height := screenHeight - marginInt[0] - marginInt[2]
 	switch t.borderShape {
 	case tui.BorderHorizontal:
 		t.border = t.tui.NewWindow(
@@ -859,22 +990,22 @@ func (t *Terminal) resizeWindows() {
 		t.border = t.tui.NewWindow(
 			marginInt[0], marginInt[3], width+2, height,
 			false, tui.MakeBorderStyle(tui.BorderRight, t.unicode))
-	case tui.BorderRounded, tui.BorderSharp:
+	case tui.BorderRounded, tui.BorderSharp, tui.BorderBold, tui.BorderDouble:
 		t.border = t.tui.NewWindow(
 			marginInt[0]-1, marginInt[3]-2, width+4, height+2,
 			false, tui.MakeBorderStyle(t.borderShape, t.unicode))
 	}
 
-	// Add padding
+	// Add padding to margin
 	for idx, val := range paddingInt {
 		marginInt[idx] += val
 	}
-	width = screenWidth - marginInt[1] - marginInt[3]
-	height = screenHeight - marginInt[0] - marginInt[2]
+	width -= paddingInt[1] + paddingInt[3]
+	height -= paddingInt[0] + paddingInt[2]
 
 	// Set up preview window
 	noBorder := tui.MakeBorderStyle(tui.BorderNone, t.unicode)
-	if previewVisible {
+	if t.isPreviewVisible() {
 		var resizePreviewWindows func(previewOpts previewOpts)
 		resizePreviewWindows = func(previewOpts previewOpts) {
 			hasThreshold := previewOpts.threshold > 0 && previewOpts.alternative != nil
@@ -889,7 +1020,7 @@ func (t *Terminal) resizeWindows() {
 				}
 				t.pborder = t.tui.NewWindow(y, x, w, h, true, previewBorder)
 				switch previewOpts.border {
-				case tui.BorderSharp, tui.BorderRounded:
+				case tui.BorderSharp, tui.BorderRounded, tui.BorderBold, tui.BorderDouble:
 					pwidth -= 4
 					pheight -= 2
 					x += 2
@@ -969,6 +1100,34 @@ func (t *Terminal) resizeWindows() {
 			width,
 			height, false, noBorder)
 	}
+
+	// Print border label
+	printLabel := func(window tui.Window, render labelPrinter, opts labelOpts, length int, borderShape tui.BorderShape) {
+		if window == nil || render == nil {
+			return
+		}
+
+		switch borderShape {
+		case tui.BorderHorizontal, tui.BorderTop, tui.BorderBottom, tui.BorderRounded, tui.BorderSharp, tui.BorderBold, tui.BorderDouble:
+			var col int
+			if opts.column == 0 {
+				col = util.Max(0, (window.Width()-length)/2)
+			} else if opts.column < 0 {
+				col = util.Max(0, window.Width()+opts.column+1-length)
+			} else {
+				col = util.Min(opts.column-1, window.Width()-length)
+			}
+			row := 0
+			if borderShape == tui.BorderBottom || opts.bottom {
+				row = window.Height() - 1
+			}
+			window.Move(row, col)
+			render(window, window.Width())
+		}
+	}
+	printLabel(t.border, t.borderLabel, t.borderLabelOpts, t.borderLabelLen, t.borderShape)
+	printLabel(t.pborder, t.previewLabel, t.previewLabelOpts, t.previewLabelLen, t.previewOpts.border)
+
 	for i := 0; i < t.window.Height(); i++ {
 		t.window.MoveAndClear(i, 0)
 	}
@@ -1108,8 +1267,15 @@ func (t *Terminal) printInfo() {
 	if t.failed != nil && t.count == 0 {
 		output = fmt.Sprintf("[Command failed: %s]", *t.failed)
 	}
-	output = t.trimMessage(output, t.window.Width()-pos)
+	maxWidth := t.window.Width() - pos
+	output = t.trimMessage(output, maxWidth)
 	t.window.CPrint(tui.ColInfo, output)
+
+	fillLength := maxWidth - len(output) - 2
+	if t.separatorLen > 0 && fillLength > 0 {
+		t.window.CPrint(tui.ColSeparator, " ")
+		t.separator(t.window, fillLength)
+	}
 }
 
 func (t *Terminal) printHeader() {
@@ -1348,6 +1514,11 @@ func (t *Terminal) printHighlighted(result Result, colBase tui.ColorPair, colMat
 		displayWidth = t.displayWidthWithLimit(text, 0, displayWidth)
 	}
 
+	t.printColoredString(t.window, text, offsets, colBase)
+	return displayWidth
+}
+
+func (t *Terminal) printColoredString(window tui.Window, text []rune, offsets []colorOffset, colBase tui.ColorPair) {
 	var index int32
 	var substr string
 	var prefixWidth int
@@ -1357,11 +1528,11 @@ func (t *Terminal) printHighlighted(result Result, colBase tui.ColorPair, colMat
 		e := util.Constrain32(offset.offset[1], index, maxOffset)
 
 		substr, prefixWidth = t.processTabs(text[index:b], prefixWidth)
-		t.window.CPrint(colBase, substr)
+		window.CPrint(colBase, substr)
 
 		if b < e {
 			substr, prefixWidth = t.processTabs(text[b:e], prefixWidth)
-			t.window.CPrint(offset.color, substr)
+			window.CPrint(offset.color, substr)
 		}
 
 		index = e
@@ -1371,9 +1542,8 @@ func (t *Terminal) printHighlighted(result Result, colBase tui.ColorPair, colMat
 	}
 	if index < maxOffset {
 		substr, _ = t.processTabs(text[index:], prefixWidth)
-		t.window.CPrint(colBase, substr)
+		window.CPrint(colBase, substr)
 	}
-	return displayWidth
 }
 
 func (t *Terminal) renderPreviewSpinner() {
@@ -1863,6 +2033,10 @@ func (t *Terminal) isPreviewEnabled() bool {
 	return t.hasPreviewer() && t.previewer.enabled
 }
 
+func (t *Terminal) isPreviewVisible() bool {
+	return t.isPreviewEnabled() && t.previewOpts.size.size > 0
+}
+
 func (t *Terminal) hasPreviewWindow() bool {
 	return t.pwindow != nil && t.isPreviewEnabled()
 }
@@ -1962,7 +2136,28 @@ func (t *Terminal) cancelPreview() {
 // Loop is called to start Terminal I/O
 func (t *Terminal) Loop() {
 	// prof := profile.Start(profile.ProfilePath("/tmp/"))
-	<-t.startChan
+	fitpad := <-t.startChan
+	fit := fitpad.fit
+	if fit >= 0 {
+		pad := fitpad.pad
+		t.tui.Resize(func(termHeight int) int {
+			contentHeight := fit + t.extraLines()
+			if t.hasPreviewer() {
+				if t.previewOpts.aboveOrBelow() {
+					if t.previewOpts.size.percent {
+						newContentHeight := int(float64(contentHeight) * 100. / (100. - t.previewOpts.size.size))
+						contentHeight = util.Max(contentHeight+1+borderLines(t.previewOpts.border), newContentHeight)
+					} else {
+						contentHeight += int(t.previewOpts.size.size) + borderLines(t.previewOpts.border)
+					}
+				} else {
+					// Minimum height if preview window can appear
+					contentHeight = util.Max(contentHeight, 1+borderLines(t.previewOpts.border))
+				}
+			}
+			return util.Min(termHeight, contentHeight+pad)
+		})
+	}
 	{ // Late initialization
 		intChan := make(chan os.Signal, 1)
 		signal.Notify(intChan, os.Interrupt, syscall.SIGTERM)
@@ -2291,13 +2486,21 @@ func (t *Terminal) Loop() {
 	}()
 
 	looping := true
+	_, startEvent := t.keymap[tui.Start.AsEvent()]
+
 	for looping {
 		var newCommand *string
 		changed := false
 		beof := false
 		queryChanged := false
 
-		event := t.tui.GetChar()
+		var event tui.Event
+		if startEvent {
+			event = tui.Start.AsEvent()
+			startEvent = false
+		} else {
+			event = t.tui.GetChar()
+		}
 
 		t.mutex.Lock()
 		previousInput := t.input

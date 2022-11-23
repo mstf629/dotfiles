@@ -15,7 +15,7 @@ while True:
     except ZeroDivisionError:
         print("You can't divide by zero")
     except(KeyboardInterrupt,EOFError):
-        print("\nthanks for use my prograg")
+        print("\nthanks for use my program")
         sys.exit()
         
 

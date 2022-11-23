@@ -7,7 +7,7 @@ let mapleader=" "
 set number "number of lines
 set relativenumber "number the current line
 syntax on 
-colorscheme industry 
+
 set tabstop=4 "set four spaces for tap
 set autoindent "make auto indent 
 set expandtab "swap tap to spaces
@@ -48,6 +48,8 @@ call plug#begin('~/.vim/plugged')
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 Plug 'chrisbra/Colorizer'
+"pywal for vim
+Plug 'dylanaraps/wal.vim'
 "this plugs for snippets
 Plug 'honza/vim-snippets'
 Plug 'SirVer/ultisnips'

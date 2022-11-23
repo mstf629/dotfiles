@@ -1,6 +1,84 @@
 CHANGELOG
 =========
 
+0.35.1
+------
+- Fixed a bug where fzf with `--tiebreak=chunk` crashes on inverse match query
+- Fixed a bug where clicking above fzf would paste escape sequences
+
+0.35.0
+------
+- Added `start` event that is triggered only once when fzf finder starts.
+  Since fzf consumes the input stream asynchronously, the input list is not
+  available unless you use `--sync`.
+  ```sh
+  seq 100 | fzf --multi --sync --bind 'start:last+select-all+preview(echo welcome)'
+  ```
+- Added `--border-label` and `--border-label-pos` for putting label on the border
+  ```sh
+  # ANSI color codes are supported
+  # (with https://github.com/busyloop/lolcat)
+  label=$(curl -s http://metaphorpsum.com/sentences/1 | lolcat -f)
+
+  # Border label at the center
+  fzf --height=10 --border --border-label="╢ $label ╟" --color=label:italic:black
+
+  # Left-aligned (positive integer)
+  fzf --height=10 --border --border-label="╢ $label ╟" --border-label-pos=3 --color=label:italic:black
+
+  # Right-aligned (negative integer) on the bottom line (:bottom)
+  fzf --height=10 --border --border-label="╢ $label ╟" --border-label-pos=-3:bottom --color=label:italic:black
+  ```
+- Also added `--preview-label` and `--preview-label-pos` for the border of the
+  preview window
+  ```sh
+  fzf --preview 'cat {}' --border --preview-label=' Preview ' --preview-label-pos=2
+  ```
+- Info panel (match counter) will be followed by a horizontal separator by
+  default
+    - Use `--no-separator` or `--separator=''` to hide the separator
+    - You can specify an arbitrary string that is repeated to form the
+      horizontal separator. e.g. `--separator=╸`
+    - The color of the separator can be customized via `--color=separator:...`
+    - ANSI color codes are also supported
+  ```sh
+  fzf --separator=╸ --color=separator:green
+  fzf --separator=$(lolcat -f -F 1.4 <<< ▁▁▂▃▄▅▆▆▅▄▃▂▁▁) --info=inline
+  ```
+- Added `--border=bold` and `--border=double` along with
+  `--preview-window=border-bold` and `--preview-window=border-double`
+
+0.34.0
+------
+- Added support for adaptive `--height`. If the `--height` value is prefixed
+  with `~`, fzf will automatically determine the height in the range according
+  to the input size.
+  ```sh
+  seq 1 | fzf --height ~70% --border --padding 1 --margin 1
+  seq 10 | fzf --height ~70% --border --padding 1 --margin 1
+  seq 100 | fzf --height ~70% --border --padding 1 --margin 1
+  ```
+    - There are a few limitations
+        - Not compatible with percent top/bottom margin/padding
+          ```sh
+          # This is not allowed (top/bottom margin in percent value)
+          fzf --height ~50% --border --margin 5%,10%
+
+          # This is allowed (top/bottom margin in fixed value)
+          fzf --height ~50% --border --margin 2,10%
+          ```
+        - fzf will not start until it can determine the right height for the input
+          ```sh
+          # fzf will open immediately
+          (sleep 2; seq 10) | fzf --height 50%
+
+          # fzf will open after 2 seconds
+          (sleep 2; seq 10) | fzf --height ~50%
+          (sleep 2; seq 1000) | fzf --height ~50%
+          ```
+- Fixed tcell renderer used to render full-screen fzf on Windows
+- `--no-clear` is deprecated. Use `reload` action instead.
+
 0.33.0
 ------
 - Added `--scheme=[default|path|history]` option to choose scoring scheme

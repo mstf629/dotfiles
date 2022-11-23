@@ -1,6 +1,5 @@
 [ -z "$PS1" ] && return
 #--------------------  variables  ----------------------------------
-
 export EDITOR="vim"
 export LESSHISTFILE="/dev/null"
 

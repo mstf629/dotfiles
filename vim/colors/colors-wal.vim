@@ -1,0 +1,1 @@
+/home/mustafa/.cache/wal/colors-wal.vim

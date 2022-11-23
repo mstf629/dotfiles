@@ -189,6 +189,10 @@ func (r *LightRenderer) Init() {
 	}
 }
 
+func (r *LightRenderer) Resize(maxHeightFunc func(int) int) {
+	r.maxHeightFunc = maxHeightFunc
+}
+
 func (r *LightRenderer) makeSpace() {
 	r.stderr("\n")
 	r.csi("G")
@@ -541,7 +545,7 @@ func (r *LightRenderer) mouseSequence(sz *int) Event {
 	t := atoi(elems[0], -1)
 	x := atoi(elems[1], -1) - 1
 	y := atoi(elems[2], -1) - 1 - r.yoffset
-	if t < 0 || x < 0 || y < 0 {
+	if t < 0 || x < 0 {
 		return Event{Invalid, 0, nil}
 	}
 	*sz += end + 1
@@ -676,6 +680,9 @@ func (r *LightRenderer) MaxX() int {
 }
 
 func (r *LightRenderer) MaxY() int {
+	if r.height == 0 {
+		r.updateTerminalSize()
+	}
 	return r.height
 }
 
@@ -705,7 +712,7 @@ func (r *LightRenderer) NewWindow(top int, left int, width int, height int, prev
 
 func (w *LightWindow) drawBorder() {
 	switch w.border.shape {
-	case BorderRounded, BorderSharp:
+	case BorderRounded, BorderSharp, BorderBold, BorderDouble:
 		w.drawBorderAround()
 	case BorderHorizontal:
 		w.drawBorderHorizontal(true, true)
