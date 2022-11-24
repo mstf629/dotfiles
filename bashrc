@@ -8,7 +8,7 @@ export LESSHISTFILE="/dev/null"
 # 0 - 15 for colors, and 16 for reset.
 Co=( '\033[3'{0..7}m '\033[1;3'{0..7}m '\033[0m' )
 
-PS1="\[${Co[10]}\]\w \[${Co[11]}\]➜\[${Co[16]}\] "
+PS1="${VIRTUAL_ENV_PROMPT}\[${Co[10]}\]\w \[${Co[11]}\]➜\[${Co[16]}\] "
 HISTCONTROL=ignoreboth
 HISTSIZE=1000
 HISTFILESIZE=2000

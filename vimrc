@@ -40,7 +40,8 @@ map <leader>l :nohl<CR>
 
 "copy and paste
 map <leader>p :.!xclip -o -selection clipboard<CR>:echo '  ' <CR>
-map <leader>y :.!xclip -i -selection clipboard && xclip -o -selection clipboard<CR>:echo 'copy done :)' <CR>
+map <leader>y v : !xclip -i -selection clipboard && xclip -o -selection clipboard<CR>:echo 'copy done :)' <CR>
+
 """""""""""""""""""""""""""""""""
 """""#######PLUGINS#######""""""
 """""""""""""""""""""""""""""""
