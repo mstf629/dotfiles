@@ -1,7 +1,7 @@
 [ -z "$PS1" ] && return
 #==========VARIABLEs==========
 #set vim default editor
-export EDITOR="nvim"
+export EDITOR="vim"
 #history settings
 export HISTCONTROL=ignoreboth
 export HISTSIZE=5000
@@ -39,7 +39,7 @@ alias ip="ip --color=auto"
 alias pacman='pacman --color=auto' #set color for pacman
 alias grep='grep --color=auto' 
 #move some output to null partition 
-alias startx='startx 1> /dev/null' #move all output to null partition 
+alias startx='startx 2> /dev/null' #move all output to null partition 
 alias mpv='mpv >/dev/null' 
 alias neomutt='TERM=screen-256color neomutt'
 #==========FUNCTIONS==========

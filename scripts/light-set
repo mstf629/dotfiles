@@ -12,33 +12,17 @@ _dec() {
         new="${new%.*}"
 }
 
-_set() {
-        local arg="${1%\%}"
-        new="$(echo "scale=2; ${arg} / 100 * ${max}" | bc)"
-        new="${new%.*}"
-}
-
-_get() {
-        current="$(echo "scale=2; ${current} / ${max}" | bc )"
-        printf '%s%%\n' "${current}"
-}
-
 _write() {
         echo "${new}" > "${base}/brightness"
 }
 
 base='/sys/class/backlight/intel_backlight'
-
 read -r current < "${base}/brightness"
 read -r max < "${base}/max_brightness"
-
-cmd="$1"
 
 case "$1" in
         inc) _inc "$2" ;;
         dec) _dec "$2" ;;
-        set) _set "$2" ;;
-        get) _get ;;
 esac
 
 if [ ! -z "${new}" ]; then
