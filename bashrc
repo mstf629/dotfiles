@@ -7,10 +7,15 @@ export HISTCONTROL=ignoreboth
 export HISTSIZE=5000
 export HISTFILESIZE=5000
 
+export dotfiles=$HOME/mydotfiles
+export vim_runtime=$HOME/.vim
+export nvim_runtime=$HOME/.config/nvim
+export qtile_config=$HOME/.config/qtile
+
 #prompt settings
 # 0 - 15 for colors, and 16 for reset.
 Co=( '\033[3'{0..7}m '\033[1;3'{0..7}m '\033[0m' )
-PS1="\[${Co[4]}\][\e \[${Co[16]}\]\t\e \[${Co[4]}\]]\e \[${Co[3]}\]➜ \[${Co[4]}\]\w \[${Co[1]}\]$ \[${Co[16]}\]"
+PROMPT_COMMAND="_ps1"
 
 #==========BASH-OPTIONS==========
 #testing vi mode 
@@ -43,7 +48,30 @@ alias startx='startx 2> /dev/null' #move all output to null partition
 alias mpv='mpv >/dev/null' 
 alias neomutt='TERM=screen-256color neomutt'
 #==========FUNCTIONS==========
+_check_branch(){
+        git branch --show-current 2>/dev/null
+}
 _ps1() {
-    local branch="$(git branch --show-current 2>/dev/null)"
-    PS1="\[${Co[4]}\][\e \[${Co[16]}\]\t\e \[${Co[4]}\]]\e \[${Co[3]}\]➜ \[${Co[4]}\]\w \[${Co[1]}\]${branch}\[${Co[1]}\]$ \[${Co[16]}\]"
-}; PROMPT_COMMAND="_ps1"
+        branch=$(_check_branch)
+        declare -A _p=(
+        [t]="\[${Co[16]}\]\t\[${Co[16]}\]"         # time 
+        [u]="\[${Co[11]}\]\u\[${Co[16]}\]"         # user
+        [w]="\[${Co[4]}\]\W\[${Co[16]}\]"          # working directory
+        [b]="\[${Co[1]}\]${branch}\[${Co[16]}\]"   # git branch
+        [d]="\[${Co[1]}\]\$\[${Co[16]}\]"          # $
+        [c]="\[${Co[8]}\]:\[${Co[16]}\]"           # :
+        [-]="\[${Co[8]}\]-\[${Co[16]}\]"           # -
+        [lb]="\[${Co[4]}\][\[${Co[16]}\]"          # [
+        [rb]="\[${Co[4]}\]]\[${Co[16]}\]"          # ]
+        [lp]="\[${Co[4]}\](\[${Co[16]}\]"          # (
+        [rp]="\[${Co[4]}\])\[${Co[16]}\]"          # )
+        [at]="\[${Co[4]}\]@\[${Co[16]}\]"          # @
+        [ar]="\[${Co[3]}\]➜\[${Co[16]}\]"
+        )
+        if [[ ! -z ${branch} ]]; then
+               PS1="${_p[lb]}${_p[t]}${_p[rb]}${_p[ar]} ${_p[w]} ${_p[lp]}${_p[b]}${_p[rp]}${_p[d]} "
+        else
+               PS1="${_p[lb]}${_p[t]}${_p[rb]}${_p[ar]} ${_p[w]} ${_p[d]} "
+        fi
+}
+

@@ -214,8 +214,3 @@ bindsym $mod+Shift+i		gaps inner current plus 1
 bindsym $mod+o			gaps outer current minus1
 bindsym $mod+Shift+o		gaps outer current plus 1
 
- 
- 
-
-
-
