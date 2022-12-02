@@ -3,7 +3,7 @@ set $mod Mod4
 set $terminal xfce4-terminal 
 set $nsi --no-startup-id
 #Font============================
-font pango: JetBrains Mono Bold 8
+font pango: Dejavu sans Bold 8 
 #=====================================================KEYBIND===========================================================================
 # restart i3 
 bindsym $mod+Shift+r restart
@@ -158,7 +158,7 @@ bar {
 
 
 #=====================================================WORKSPACE=========================================================================
-set $ws1 1:Terminals
+set $ws1 1:Terminals 
 set $ws2 2:Browser
 set $ws3 3:Doc
 set $ws4 4:Media

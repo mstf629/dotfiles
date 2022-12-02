@@ -2,15 +2,16 @@
 #==========VARIABLEs==========
 #set vim default editor
 export EDITOR="vim"
+
 #history settings
 export HISTCONTROL=ignoreboth
 export HISTSIZE=5000
 export HISTFILESIZE=5000
 
-export dotfiles=$HOME/mydotfiles
-export vim_runtime=$HOME/.vim
+export dotfiles=$HOME/repos/dotfiles
 export nvim_runtime=$HOME/.config/nvim
 export qtile_config=$HOME/.config/qtile
+export repos=$HOME/repos
 
 #prompt settings
 # 0 - 15 for colors, and 16 for reset.
@@ -25,10 +26,13 @@ shopt -s cdspell
 #display update
 shopt -s checkwinsize
 #==========ALIASES==========
-#cd
-#cd,cp,rm,du free stuff
+#cd 
+alias ..='cd ../'
+alias dot='cd $dotfiles'
 alias dl='cd $HOME/Downloads/'
-alias ..='cd ..' 
+alias nv='cd $nvim_runtime'
+alias rpos='cd $repos'
+#cp,rm,du free stuff
 alias cp='cp -v'
 alias rm='rm -v'
 alias du='dust -r -p '
