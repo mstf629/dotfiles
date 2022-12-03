@@ -1,17 +1,16 @@
 #!/usr/bin/env python
 
-from libqtile.config import Group ,Match
+from libqtile.config import Group ,Match ,ScratchPad,DropDown
 from libqtile.command import lazy
 from .keys import *
 
-#groups = [ Group(i) for i in ['1:Terminal','2:Browser','3:Doc','4:Media','5:Emulater']]
 groups = [
         Group("1:Terminal"),
-        Group("2:Browser",matches=[Match(wm_class=['firefox'])]),
-        Group("3:Doc"),
-        Group("4:Media"), 
-        Group("5:Emulater"),
-        ]
+        Group("2:Browser",matches=[Match(wm_class=['firefox','qutebrowser'],role='browser')]),
+        Group("3:Doc",matches=[Match(wm_class=['Zathura'])]),
+        Group("4:Media",matches=[Match(wm_class=['Sxiv','mpv'])]), 
+        Group("5:Emulater",matches=[Match(wm_class=['PPSSPPSDL'])]),
+        ScratchPad("terminal", [DropDown("term", terminal, opacity=0.9, width=0.56, height=0.46, x=0.22, y=0.27, ),])] #make dropdown term 
 
 for i,group in enumerate(groups):
     actual_key = str(i + 1)

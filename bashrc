@@ -8,10 +8,8 @@ export HISTCONTROL=ignoreboth
 export HISTSIZE=5000
 export HISTFILESIZE=5000
 
-export dotfiles=$HOME/repos/dotfiles
-export nvim_runtime=$HOME/.config/nvim
-export qtile_config=$HOME/.config/qtile
 export repos=$HOME/repos
+export dotfiles=$repos/dotfiles
 
 #prompt settings
 # 0 - 15 for colors, and 16 for reset.
@@ -30,8 +28,7 @@ shopt -s checkwinsize
 alias ..='cd ../'
 alias dot='cd $dotfiles'
 alias dl='cd $HOME/Downloads/'
-alias nv='cd $nvim_runtime'
-alias rpos='cd $repos'
+alias repos='cd $repos'
 #cp,rm,du free stuff
 alias cp='cp -v'
 alias rm='rm -v'

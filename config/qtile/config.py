@@ -1,22 +1,8 @@
 from libqtile import bar, layout, widget
-from libqtile.config import Click, Drag, Match, Screen
-#from libqtile.lazy import lazy 
-#from libqtile.utils import guess_terminal
+from libqtile.config import Click, Drag, Screen
 from settings.groups import *
 from settings.keys import *
 
-
-
-#groups = [ Group(i) for i in ['1:Terminal','2:Browser','3:doc','4:media']]
-#
-#for i,group in enumerate(groups):
-#    actual_key = str(i + 1)
-#    keys.extend(
-#        [
-#            Key([mod], actual_key, lazy.group[group.name].toscreen()), 
-#            Key([mod, "shift"], actual_key, lazy.window.togroup(group.name, switch_group=True)),
-#        ]
-#    )
 
 layouts = [
     layout.Columns(border_focus_stack=["#d75f5f", "#8f3d3d"], border_width=4),
