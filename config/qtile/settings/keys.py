@@ -1,4 +1,4 @@
-from libqtile.lazy import lazy 
+from libqtile.command import lazy 
 from libqtile.config import Key ,KeyChord
 from .groups import *
 
@@ -23,6 +23,11 @@ keys = [
         Key([mod, "control"], "l", lazy.layout.grow_right()),  #Grow window to the right
         Key([mod, "control"], "j", lazy.layout.grow_down()),   #Grow window down
         Key([mod, "control"], "k", lazy.layout.grow_up()),     #Grow window up
+
+        Key([mod, "mod1"], "j", lazy.layout.flip_down()),
+        Key([mod, "mod1"], "k", lazy.layout.flip_up()),
+        Key([mod, "mod1"], "h", lazy.layout.flip_left()),
+        Key([mod, "mod1"], "l", lazy.layout.flip_right()),
         
         Key([mod], "n", lazy.layout.normalize()),              #Reset all window sizes
         Key([mod, "shift"], "Return", lazy.layout.toggle_split()), #"Toggle between split and unsplit sides of stack
@@ -42,6 +47,23 @@ keys = [
             Key([], "e", lazy.shutdown()),
             Key([], "r", lazy.spawn("shutdown -r now")),
             Key([], "f", lazy.spawn("shutdown  now")),
+            Key([], "l", lazy.spawn(i3lock)),
             ]),
+#       =====================hardware=====================
+        Key([], "XF86AudioLowerVolume", lazy.spawn(
+            "pactl set-sink-volume @DEFAULT_SINK@ -5%"
+            )),
+        Key([], "XF86AudioRaiseVolume", lazy.spawn(
+            "pactl set-sink-volume @DEFAULT_SINK@ +5%"
+            )),
+        Key([], "XF86AudioMute", lazy.spawn(
+            "pactl set-sink-mute @DEFAULT_SINK@ toggle"
+            )),
+        Key([], "XF86MonBrightnessUp" ,lazy.spawn(
+            "light-set inc 5%"
+            )),
+        Key([], "XF86MonBrightnessDown" ,lazy.spawn(
+            "light-set dec 5%"
+            )),
 ]
 
