@@ -5,9 +5,9 @@ from libqtile.command import lazy
 from .keys import *
 
 groups = [
-        Group("1:Terminal",layout='radiotile'),
+        Group("1:Terminal",layout="TreeTap"),
         Group("2:Browser",matches=[Match(wm_class=['firefox','qutebrowser'],role='browser')]),
-        Group("3:Doc",matches=[Match(wm_class=['Zathura'])]),
+        Group("3:Doc", matches=[Match(wm_class=['Zathura'])], layout="TreeTap"),
         Group("4:Media",matches=[Match(wm_class=['Sxiv','mpv'])]), 
         Group("5:Emulater",matches=[Match(wm_class=['PPSSPPSDL'])]),
         ScratchPad("terminal", [DropDown("term", terminal, opacity=0.9, width=0.56, height=0.46, x=0.22, y=0.27, ),])] #make dropdown term 
