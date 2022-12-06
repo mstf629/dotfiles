@@ -17,6 +17,3 @@ for i in range(len(colors)):
     colors[i][0]=colors[i][0][0:7]
     colors[i][1]=colors[i][1][0:7]
 
-for i in colors:
-    print(i)
-

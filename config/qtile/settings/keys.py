@@ -48,22 +48,22 @@ keys = [
             Key([], "r", lazy.spawn("shutdown -r now")),
             Key([], "f", lazy.spawn("shutdown  now")),
             Key([], "l", lazy.spawn(i3lock)),
-            ]),
+        ]),
 #       =====================hardware=====================
         Key([], "XF86AudioLowerVolume", lazy.spawn(
             "pactl set-sink-volume @DEFAULT_SINK@ -5%"
-            )),
+        )),
         Key([], "XF86AudioRaiseVolume", lazy.spawn(
             "pactl set-sink-volume @DEFAULT_SINK@ +5%"
-            )),
+        )),
         Key([], "XF86AudioMute", lazy.spawn(
             "pactl set-sink-mute @DEFAULT_SINK@ toggle"
-            )),
+        )),
         Key([], "XF86MonBrightnessUp" ,lazy.spawn(
             "light-set inc 5%"
-            )),
+        )),
         Key([], "XF86MonBrightnessDown" ,lazy.spawn(
             "light-set dec 5%"
-            )),
+        )),
 ]
 
