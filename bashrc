@@ -1,4 +1,5 @@
 [ -z "$PS1" ] && return
+[ -f "/home/mustafa/.cache/wal/sequences" ] && cat $HOME/.cache/wal/sequences 
 #==========VARIABLEs==========
 #set vim default editor
 export EDITOR="vim"

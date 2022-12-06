@@ -1,5 +1,8 @@
 let g:netrw_dirhistmax  =10
-let g:netrw_dirhistcnt =7
+let g:netrw_dirhistcnt =0
+let g:netrw_dirhist_0='/usr/lib/python3.10/site-packages/libqtile/command'
+let g:netrw_dirhist_9='/home/mustafa/repos/dotfiles/config/qtile/settings'
+let g:netrw_dirhist_8='/home/mustafa/.config/qtile/settings'
 let g:netrw_dirhist_7='/home/mustafa/repos/dotfiles/config/xfce4/xfconf/xfce-perchannel-xml'
 let g:netrw_dirhist_6='/home/mustafa/test'
 let g:netrw_dirhist_5='/home/mustafa/dotfiles/vim'
@@ -7,6 +10,3 @@ let g:netrw_dirhist_4='/usr/include/bash'
 let g:netrw_dirhist_3='/home/mustafa/.vim'
 let g:netrw_dirhist_2='/bin'
 let g:netrw_dirhist_1='/'
-let g:netrw_dirhist_0='/usr/share/vim/vim90/doc'
-let g:netrw_dirhist_9='/usr/share/doc/feh/examples'
-let g:netrw_dirhist_8='/usr/share/doc/feh'
