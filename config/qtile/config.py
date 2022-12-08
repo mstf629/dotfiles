@@ -1,10 +1,10 @@
-from settings.screens import * 
-from settings.groups import *
-from settings.keys import *
-from settings.mouse import *
-from settings.layouts import *
+from settings.screens  import screens
+from settings.groups   import groups 
+from settings.keys     import keys 
+from settings.mouse    import mouse 
+from settings.layouts  import layouts,floating_layout 
 
-
+main=None
 dgroups_key_binder = None
 dgroups_app_rules = []  # type: list
 follow_mouse_focus = False

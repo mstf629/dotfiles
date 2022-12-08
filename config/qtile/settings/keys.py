@@ -1,10 +1,10 @@
 from libqtile.command import lazy 
 from libqtile.config import Key ,KeyChord
-from .groups import *
+from .theme import colors
 
 mod = "mod4"
 terminal = 'xfce4-terminal'
-dmenu = "dmenu_run  -l 5 -p 'run:' "
+dmenu = f'dmenu_run -i  -l 5 -p "run:" -sb {colors[1][1]}'
 i3lock = "i3lock -c 080808"
 
 keys = [
@@ -42,6 +42,7 @@ keys = [
         Key([mod], "d", lazy.spawn(dmenu)),             #Launch dmenu 
         Key([mod], "x", lazy.spawn(i3lock)),            #Lock a screen with i3lock
         Key([mod], "r", lazy.reload_config()),          #Reload the config
+        Key([mod], "g", lazy.spawn()),
 
         KeyChord([mod], "Delete",[ #exit from qtile, shutdown the system and restart the system 
             Key([], "e", lazy.shutdown()),

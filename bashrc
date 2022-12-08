@@ -26,6 +26,7 @@ shopt -s cdspell
 shopt -s checkwinsize
 #==========ALIASES==========
 #cd 
+alias qts='cd $dotfiles/config/qtile/settings'
 alias ..='cd ../'
 alias dot='cd $dotfiles'
 alias dl='cd $HOME/Downloads/'

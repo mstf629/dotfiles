@@ -1,0 +1,5 @@
+#!/usr/bin/bash
+
+wal -i $1
+
+qtile cmd-obj -o cmd -f reload_config
