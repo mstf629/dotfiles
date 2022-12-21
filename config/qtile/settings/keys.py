@@ -1,6 +1,7 @@
 from libqtile.command import lazy 
 from libqtile.config import Key ,KeyChord
 from .theme import colors
+from .groups import *
 
 mod = "mod4"
 terminal = 'xfce4-terminal'
@@ -35,9 +36,10 @@ keys = [
         Key([mod], "Escape", lazy.window.kill()),              #Kill focused window
         Key([mod], "f", lazy.window.toggle_fullscreen()),      #fullscreen
         Key([mod], "t", lazy.window.toggle_floating()),        #Make focuced window floatinf
-#       =====================groups-keys=====================
+        Key([mod], "b", lazy.hide_show_bar()),
+       #=====================groups-keys=====================
         Key([mod], "u", lazy.group['terminal'].dropdown_toggle('term')), #hide and unhide dropdown terminal
-#       =====================apps-keys=====================
+       #=====================apps-keys=====================
         Key([mod], "Return", lazy.spawn(terminal)),     #Launch terminal
         Key([mod], "d", lazy.spawn(dmenu)),             #Launch dmenu 
         Key([mod], "x", lazy.spawn(i3lock)),            #Lock a screen with i3lock
@@ -50,7 +52,7 @@ keys = [
             Key([], "f", lazy.spawn("shutdown  now")),
             Key([], "l", lazy.spawn(i3lock)),
         ]),
-#       =====================hardware=====================
+       #=====================hardware=====================
         Key([], "XF86AudioLowerVolume", lazy.spawn(
             "pactl set-sink-volume @DEFAULT_SINK@ -5%"
         )),

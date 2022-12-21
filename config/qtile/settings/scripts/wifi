@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+#
+
+a=$(iwconfig wlan0 | sed -e '/ESSID/!d' -e 's/.*ESSID:"/"/')
+
+echo $a
+
+

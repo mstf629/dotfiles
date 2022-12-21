@@ -7,5 +7,6 @@ def status_bar(widgets):
 
 screens = [
         Screen(top=status_bar(status_bar_widgets)),
+        Screen(bottom=status_bar(status_bar_widgets),width=100),
 ]
 

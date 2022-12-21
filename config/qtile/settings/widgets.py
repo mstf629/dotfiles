@@ -1,5 +1,6 @@
 from libqtile import widget
 from .theme import colors
+import  subprocess
 
 def base(fg='#ffffff', bg='#000000'):
     return dict(
@@ -10,16 +11,15 @@ def base(fg='#ffffff', bg='#000000'):
             )
 
 def sep():
-    return [
-            widget.Sep(
-                **base(fg=colors[1][1]),
-                linewidth=2
-            )
-    ]
+    return widget.Sep(
+            **base(fg=colors[1][1]),
+            linewidth=2,
+            margin=10
+           ) 
 
 def workspace():
     return [
-            *sep(),
+            sep(),
             widget.GroupBox(
                 **base(),
                 highlight_method='line',
@@ -33,7 +33,7 @@ def workspace():
         
 def clock():
     return [
-            *sep(),
+            sep(),
             widget.Clock(
                 **base(),
                 format='%H:%M %d-%m-%y',
@@ -41,24 +41,51 @@ def clock():
     ]
 def check_updates():
     return [
-            *sep(),
+            widget.TextBox(),
             widget.CheckUpdates(
                 **base(),
             )
     ]
 def btc():
     return [
-            *sep(),
+            widget.TextBox(),
             widget.CryptoTicker(**base()),
     ] 
-
+def net():
+    return[
+            widget.TextBox(),
+            widget.Net(),
+    ]
+def volume():
+    return [
+            sep(),
+            widget.PulseVolume(**base()),
+    ]
+def wifi():
+    return [
+            sep(),
+            widget.TextBox(text=''),
+            widget.GenPollText(
+                func=lambda:subprocess.getoutput('~/.config/qtile/settings/scripts/wifi'),
+                update_interval=1
+                )
+    ]
 status_bar_widgets = [
            *workspace(),
-           *check_updates(),
-           *btc(),
+           widget.Spacer(),
+           sep(),
+           widget.CurrentLayout(),
+           *wifi(),
+           *volume(),
            *clock(),
+           sep(),
+           widget.WidgetBox(widgets=[
+                *check_updates(),
+                *btc(),
+                *net(),
+            ]),
+           sep(),
 ]
-
 
 
 
