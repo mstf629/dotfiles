@@ -59,7 +59,9 @@ def net():
 def volume():
     return [
             sep(),
-            widget.PulseVolume(**base()),
+            widget.PulseVolume(
+                **base(),
+            ),
     ]
 def wifi():
     return [

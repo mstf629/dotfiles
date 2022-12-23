@@ -1,5 +1,6 @@
 let g:netrw_dirhistmax  =10
-let g:netrw_dirhistcnt =9
+let g:netrw_dirhistcnt =0
+let g:netrw_dirhist_0='/home/mustafa/repos/dotfiles/vim'
 let g:netrw_dirhist_9='/sys/devices/pci0000:00/0000:00:1c.0/0000:01:00.0/net/wlan0/wireless'
 let g:netrw_dirhist_8='/etc/kernel/install.d'
 let g:netrw_dirhist_7='/etc/sysctl.d'
@@ -9,4 +10,3 @@ let g:netrw_dirhist_4='/usr/share/vim/vim90'
 let g:netrw_dirhist_3='/usr/share/vim'
 let g:netrw_dirhist_2='/home/mustafa/.vim'
 let g:netrw_dirhist_1='/home/mustafa/scripts'
-let g:netrw_dirhist_0='/usr/lib/python3.10/site-packages/libqtile/command'

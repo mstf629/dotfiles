@@ -1,11 +1,8 @@
 ~/.fehbg &
-dunst &
-compton -b &
+picom &
 
-# setting up the keyboard
-setxkbmap -model pc104 -layout us,ara  -option "caps:swapescape,grp:alt_shift_toggle"
 
-if [ -e $HOME/scripts/keyboard];then
+if [ -e $HOME/scripts/keyboard ];then
    $HOME/scripts/keyboard & 
 fi
 

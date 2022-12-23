@@ -1,0 +1,20 @@
+image_size="100px"
+package_managers="on"
+shell_version="off"
+uptime_shorthand="tiny"
+
+print_info() {
+    info "  host" title 
+    info underline
+    info "os" distro
+    info " Kernel" kernel
+    info "Shell" shell
+    info " Uptime" uptime
+    info " Packages" packages
+    info " Terminal" term    
+    info " root" disk
+    info "ip" local_ip
+    info underline
+    info cols
+}
+
