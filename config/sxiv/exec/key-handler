@@ -4,7 +4,7 @@ while read file
 do
     case "$1" in
         "w") feh --bg-scale "$file" ;;
-        "W") wal -q -i "$file" ;;
+        "W") chth "$file" ;;
         "R") rm $file ;;
     esac
 done

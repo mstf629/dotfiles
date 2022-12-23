@@ -29,7 +29,7 @@ nnoremap <leader>b :Buffers<CR>
 nnoremap <leader>f :FZF<CR>
 
 "source vimrc 
-nnoremap <leader>r :source $MYVIMRC<CR> :nohl<CR> :echo 'source vimrc done :)'<CR> 
+nnoremap <leader>r :source $MYVIMRC<CR> :nohl<CR> :echo 'source vimrc done :)'<CR> 
 
 "change buffers next.pre
 nnoremap <C-n> :bnext <CR>
@@ -54,6 +54,9 @@ Plug 'dylanaraps/wal.vim'
 "this plugs for snippets
 Plug 'honza/vim-snippets'
 Plug 'SirVer/ultisnips'
+"status bar 
+Plug 'itchyny/lightline.vim'
+"make color for any hex text 
+Plug 'ap/vim-css-color'
 call plug#end()
-"skdfjalsdf
 
