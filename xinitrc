@@ -1,5 +1,5 @@
 ~/.fehbg &
-picom &
+compton &
 
 
 if [ -e $HOME/scripts/keyboard ];then

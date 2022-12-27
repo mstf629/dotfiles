@@ -2,7 +2,8 @@
 [ -f "/home/mustafa/.cache/wal/sequences" ] && cat $HOME/.cache/wal/sequences 
 #==========VARIABLEs==========
 #set vim default editor
-export EDITOR="vim"
+export EDITOR="nvim"
+export TERM="alacritty"
 
 #history settings
 export HISTCONTROL=ignoreboth
@@ -78,3 +79,10 @@ _ps1() {
         fi
 }
 
+function up() {
+   levels=$1
+   while [ "$levels" -gt "0" ] ;do 
+      cd ..
+      levels=$(($levels - 1))
+   done
+}

@@ -4,7 +4,7 @@ from .theme import colors
 from .groups import *
 
 mod = "mod4"
-terminal = 'xfce4-terminal'
+terminal = 'alacritty'
 dmenu = f'dmenu_run -i  -l 5 -p "run:" -sb {colors[1][1]}'
 i3lock = "i3lock -c 080808"
 

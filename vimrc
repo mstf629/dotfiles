@@ -10,7 +10,7 @@ syntax on
 
 set tabstop=4 "set four spaces for tap
 set autoindent "make auto indent 
-set expandtab "swap tap to spaces
+set expandtab "swap tap with spaces
 set hlsearch "make highlighting for search
 set ignorecase "ignore case when searching
 set encoding=utf-8 
@@ -35,7 +35,7 @@ nnoremap <leader>r :source $MYVIMRC<CR> :nohl<CR> :echo 'source vimrc done :)'<C
 nnoremap <C-n> :bnext <CR>
 nnoremap <C-p> :bprevious <CR>
 
-"clear hilights 
+"clear highlights 
 map <leader>l :nohl<CR>
 
 "copy and paste
@@ -47,7 +47,6 @@ map <leader>y : !xclip -i -selection clipboard&& xclip -o -selection clipboard <
 """""""""""""""""""""""""""""""
 call plug#begin('~/.vim/plugged')
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
-Plug 'junegunn/fzf.vim'
 Plug 'chrisbra/Colorizer'
 "pywal for vim
 Plug 'dylanaraps/wal.vim'
