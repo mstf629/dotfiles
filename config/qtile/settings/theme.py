@@ -3,18 +3,15 @@ import os
 
 home = os.environ['HOME']
 file = f'{home}/.cache/wal/colors'
+raw = list()
+colors = list() 
 
-colors_not_sort = []
-colors = []
-
-with open(file,'r') as _file :
-    colors_not_sort = _file.readlines()
+with open(file,'r') as f :
+    for line in f:
+        raw.append(line.rstrip())
 
 for i in range(8):
-    colors.append([colors_not_sort[i],colors_not_sort[i+8]])
+    colors.append([raw[i],raw[i+8]])
     
-for i in range(len(colors)):
-    colors[i][0]=colors[i][0][0:7]
-    colors[i][1]=colors[i][1][0:7]
 
 
