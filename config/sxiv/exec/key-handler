@@ -5,6 +5,6 @@ do
     case "$1" in
         "w") feh --bg-scale "$file" ;;
         "W") chth "$file" ;;
-        "R") rm $file ;;
+        "d") rm $file ;;
     esac
 done
