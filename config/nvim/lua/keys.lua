@@ -3,7 +3,7 @@ local keymap = vim.api.nvim_set_keymap
 
 local opts= {noremap=true, silent=true}
 -- open buffers maneger with 
-keymap("n", "<leader>b", ":buffers<cr>" ,opts)
+keymap("n", "<leader>b", ":lua require('buffer_manager.ui').toggle_quick_menu()<cr>" ,opts)
 
 -- open fzf 
 keymap("n", "<leader>f", ":FZF<cr>", opts)
