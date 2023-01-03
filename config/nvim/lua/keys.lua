@@ -27,6 +27,7 @@ keymap("n", "<C-k>", "<Esc>:m .-2<CR>==gi<Esc>", opts)
 keymap("n", "<leader>l", ":nohl<cr>", opts)
 
 -- copy paste 
-keymap("n", "<leader>p", ":.!xclip -o -selection clipboard<CR>:echo '  ' <CR>", opts)
+keymap("n", "<leader>p", ':.!xclip -o -selection clipboard<CR>:echo "  " <CR>', opts)
 keymap("v", "<leader>y", ":!xclip -i -selection clipboard&& xclip -o -selection clipboard <cr>", opts)
+
 
