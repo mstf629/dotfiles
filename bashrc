@@ -46,6 +46,7 @@ alias lssa='exa -la --color=auto --group-directories-first'
 #grep pacman ip color
 alias ip="ip --color=auto"
 alias pacman='pacman --color=auto' #set color for pacman
+alias yay='yay --color=auto' #set color for yay 
 alias grep='grep --color=auto' 
 #move some output to null partition 
 alias startx='startx 2> /dev/null' #move all output to null partition 

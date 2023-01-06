@@ -6,7 +6,7 @@ from .keys import keys,terminal,mod
 
 groups = [
         Group(" Terminal",layout="TreeTap"),
-        Group(" Browser",matches=[Match(wm_class=['firefox',],role='browser')]),
+        Group(" Browser",matches=[Match(wm_class=['firefox','brave-browser'],role='browser')]),
         Group("Doc", matches=[Match(wm_class=['Zathura'])]),
         Group(" Media",matches=[Match(wm_class=['Sxiv','mpv'])]), 
         Group(" games",matches=[Match(wm_class=['PPSSPPSDL'])]),
