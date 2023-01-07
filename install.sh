@@ -8,7 +8,7 @@ mkdir -p ~/olddotfiles/config
 
 
 #this will find the files "/home/user/file" and print the basename "file"
-FILES=$(find * -maxdepth 0 \! -name scripts \! -name config \! -name install.sh \! -name README.md)
+FILES=$(find * -maxdepth 0 \! -name scripts \! -name config \! -name install.sh \! -name README.md \! -name images)
 
 
 for FILE in $FILES

@@ -1,7 +1,0 @@
-nvim
-qtile
-python-pywal
-qtile
-dmenu
-ttf-font-awesome
-
