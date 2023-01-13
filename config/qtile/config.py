@@ -1,8 +1,9 @@
-from settings.screens  import screens
-from settings.groups   import groups 
-from settings.keys     import keys 
-from settings.mouse    import mouse 
-from settings.layouts  import layouts,floating_layout 
+from settings.screens import screens
+from settings.groups import groups 
+from settings.keys import keys
+from settings.mouse import mouse
+from settings.layouts import layouts, floating_layout
+
 
 main=None
 dgroups_key_binder = None
