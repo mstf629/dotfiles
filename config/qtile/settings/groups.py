@@ -5,12 +5,19 @@ from libqtile.command import lazy
 from .keys import keys, mod, terminal
 
 groups = [
-    Group(" Terminal", layout="TreeTap"),
-    Group(" Browser", matches=[
-          Match(wm_class=['firefox', 'brave-browser'], role='browser')]),
+    Group(" Terminal",),
+    Group(" Browser",
+          matches=[Match(wm_class=["firefox", "brave-browser", "qutebrowser"], role="browser")]),
+
     Group("noc", matches=[Match(wm_class=['Zathura'])]),
-    Group(" Media", matches=[Match(wm_class=['Sxiv', 'mpv'])]),
-    Group(" games", matches=[Match(wm_class=['PPSSPPSDL'])]),
+
+    Group(" Media",
+          matches=[Match(wm_class=['Sxiv', 'mpv'])],
+          layout="treetab"),
+
+    Group(" games", 
+          matches=[Match(wm_class=['PPSSPPSDL'])]),
+
     ScratchPad(
         "terminal",
         [DropDown(
@@ -32,6 +39,3 @@ for i, group in enumerate(groups):
          Key([mod, "shift"], actual_key, lazy.window.togroup(
              group.name, switch_group=True)),
          ])
-# keys.append(
-#        Key([mod], "u", lazy.group['terminal'].dropdown_toggle('term')), #hide and unhide dropdown terminal
-# )

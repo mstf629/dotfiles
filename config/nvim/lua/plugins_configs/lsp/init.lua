@@ -20,8 +20,9 @@ local on_attach = function(client, bufnr)
    vim.keymap.set('n', '<leader>f', function() vim.lsp.buf.format { async = true } end, bufopts)
 end
 
-require('lspconfig')['sumneko_lua'].setup {on_attach=on_attach}
-
-
-require('lspconfig')['pylsp'].setup {on_attach=on_attach}
+-- require('lspconfig')['sumneko_lua'].setup {on_attach=on_attach}
+-- 
+-- 
+-- require('lspconfig')['pylsp'].setup {on_attach=on_attach}
+-- require('lspconfig')['gopls'].setup {on_attach=on_attach}
 

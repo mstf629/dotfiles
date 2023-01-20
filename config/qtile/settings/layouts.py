@@ -12,10 +12,8 @@ floating_layout_defaults['border_width'] = 1
 
 layouts = [
     layout.Columns(**layouts_defaults, margin=[6, 6, 6, 4], insert_position=4),
-    layout.TreeTab(active_bg=colors[1][1],),
+    layout.TreeTab(**layouts_defaults, active_bg=colors[1][1],),
     layout.Max(**layouts_defaults, margin=[3, 0, 0, 0]),
 ]
 
-floating_layout = layout.Floating(auto_float_typesR=[
-    {'wmclass': 'mpv'},
-], **floating_layout_defaults)
+floating_layout = layout.Floating(**floating_layout_defaults)
