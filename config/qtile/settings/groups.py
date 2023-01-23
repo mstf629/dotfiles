@@ -7,7 +7,7 @@ from .keys import keys, mod, terminal
 groups = [
     Group(" Terminal",),
     Group(" Browser",
-          matches=[Match(wm_class=["firefox", "brave-browser", "qutebrowser"], role="browser")]),
+          matches=[Match(wm_class=["firefox", "brave-browser", "qutebrowser",])]),
 
     Group("noc", matches=[Match(wm_class=['Zathura'])]),
 
