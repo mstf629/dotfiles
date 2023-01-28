@@ -1,0 +1,16 @@
+#!/bin/bash
+
+prompt (){
+   paths=$(find ~* -type d ! -name .config ! -name .local 2>/dev/null )
+   download_dir=$(printf '%s\n' $paths |dmenu -p "path:" -l 5)
+}
+
+download() {
+   prompt
+   local output
+   output=$(curl GET $1 |sha256sum |cut -d" " -f1 )
+   curl $1 -o output 
+}
+url=$1
+prompt
+#download $url 

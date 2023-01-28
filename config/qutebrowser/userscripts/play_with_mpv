@@ -1,0 +1,21 @@
+#!/bin/bash
+
+
+get_format() {
+   local res 
+   res="$(printf '%s\n' "1080" "720" "480" "360" "240" "audio" | dmenu -p "res:")"
+
+   case "$res" in
+      audio) format="ba" ;;
+      *) format="b[height<=${res}]";;
+   esac
+}
+
+play() {
+   exec mpv --ytdl-format="$1" "$2" 2>/dev/null
+}
+
+url=$1
+
+get_format
+play $format  $url
