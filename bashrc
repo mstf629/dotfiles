@@ -4,6 +4,7 @@
 #set vim default editor
 export EDITOR="nvim"
 export TERM="alacritty"
+export BROWDSER="qutebrowser"
 
 #history settings
 export HISTCONTROL=ignoreboth
