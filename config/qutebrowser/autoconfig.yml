@@ -24,3 +24,5 @@ settings:
         ;r: null
         ;t: null
         ;y: hint links yank
+  content.proxy:
+    global: system
