@@ -9,20 +9,24 @@ settings:
   bindings.commands:
     global:
       normal:
-        ;I: hint inputs right-click
+        ;di: hint images spawn --userscript download_images {hint-url}
+        ;dv: hint all spawn --userscript download_v&a {hint-url}
         ;O: hint all tab
+        ;o: hint all current
+        ;p: hint links spawn --userscript play_with_mpv {hint-url}
+        ;yi: hint images yank
+        ;yl: hint links yank
+        ;D: hint all delete
         ;R: null
         ;T: null
         ;Y: null
         ;b: null
-        ;d: hint all delete
+        ;d: null
         ;f: null
-        ;h: hint all hover
-        ;i: hint images yank
-        ;o: hint all current
-        ;p: hint links spawn --userscript play_with_mpv {hint-url}
+        ;h: null 
+        ;i: null 
         ;r: null
         ;t: null
-        ;y: hint links yank
+        ;y: null
   content.proxy:
     global: system
