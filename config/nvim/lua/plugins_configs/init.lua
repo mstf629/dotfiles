@@ -1,5 +1,4 @@
 require("plugins_configs.buffer_manager")
-require("plugins_configs.pywal")
 require("plugins_configs.transparent")
 require("plugins_configs.lualine")
 require("plugins_configs.colorizer")

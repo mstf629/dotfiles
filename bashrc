@@ -1,9 +1,9 @@
 [ -z "$PS1" ] && return
 [ -f "/home/mustafa/.cache/wal/sequences" ] && cat $HOME/.cache/wal/sequences 
 #==========VARIABLEs==========
-#set vim default editor
+#
+#set nvim default editor
 export EDITOR="nvim"
-export TERM="alacritty"
 export BROWDSER="qutebrowser"
 
 #history settings
@@ -11,8 +11,9 @@ export HISTCONTROL=ignoreboth
 export HISTSIZE=5000
 export HISTFILESIZE=5000
 
-export repos=$HOME/repos
-export dotfiles=$repos/dotfiles
+export repos="$HOME/repos"
+export i3c="$HOME/.config/i3/"
+export dotfiles="$repos/dotfiles"
 
 #prompt settings
 # 0 - 15 for colors, and 16 for reset.
@@ -28,7 +29,7 @@ shopt -s cdspell
 shopt -s checkwinsize
 #==========ALIASES==========
 #cd 
-alias qts='cd $dotfiles/config/qtile/settings'
+alias i3c='cd $i3c'
 alias ..='cd ../'
 alias dot='cd $dotfiles'
 alias dl='cd $HOME/Downloads/'

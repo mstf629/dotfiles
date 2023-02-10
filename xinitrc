@@ -12,6 +12,6 @@ fi
 
 
 xrdb ~/.Xresources
-#exec i3 
-qtile start 
+exec i3 
+#qtile start 
 

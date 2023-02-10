@@ -1,39 +1,39 @@
 ! special
-#define FOREGROUND   #f0f0f0
-#define BACKGROUND   #151515
-#define CURSORCOLOR  #f0f0f0
-
-!define BLACK
-#define COLOR0       #090915
-#define COLOR8       #a99c9e
-
-!define RED
-#define COLOR1       #1062A3
-#define COLOR9       #1062A3
-
-!define GREEN
-#define COLOR2       #445ABD
-#define COLOR10      #445ABD
-
-!define YELLOW
-#define COLOR3       #956290
-#define COLOR11      #956290
-
-!define BLUE
-#define COLOR4       #956290
-#define COLOR12      #0F9BDC
-
-!define MAGENTA
-#define COLOR5       #0F9BDC
-#define COLOR13      #4EA6D9
-
-!define CYAN
-#define COLOR6       #4EA6D9
-#define COLOR14      #AEB3D2
-
-!define WHITE
-#define COLOR7       #AEB3D2
-#define COLOR15      #f2e0e2
+#define FOREGROUND    #EBDBB2
+#define BACKGROUND    #0b0b0b
+#define CURSORCOLOR   #d9d9d9
+                             
+!define BLACK                
+#define COLOR0        #282828 
+#define COLOR8        #928374 
+                             
+!define RED                  
+#define COLOR1        #CC241D 
+#define COLOR9        #FB4934 
+                             
+!define GREEN                
+#define COLOR2        #98971A
+#define COLOR10       #B8BB26  
+                             
+!define YELLOW               
+#define COLOR3        #D79921 
+#define COLOR11       #FABD2F 
+                             
+!define BLUE                 
+#define COLOR4        #458588
+#define COLOR12       #83A598 
+                            
+!define MAGENTA             
+#define COLOR5        #B16286 
+#define COLOR13       #D3869B 
+                            
+!define CYAN                
+#define COLOR6        #689D6A 
+#define COLOR14       #8EC07C 
+                            
+!define WHITE               
+#define COLOR7        #A89984
+#define COLOR15       #EBDBB2
 
 ! special
 *.foreground:   FOREGROUND
@@ -73,5 +73,5 @@
 *.color15:      COLOR15
 
 !primary and secondary colors
-*.primary:      COLOR1
+*.primary:      COLOR11
 *.secondary:    COLOR15

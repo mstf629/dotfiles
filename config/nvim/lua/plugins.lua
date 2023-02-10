@@ -40,8 +40,6 @@ packer.init {
 return packer.startup(function(use)
    -- Have packer manage itself
    use { "wbthomason/packer.nvim", as = "packer" }
-   --generate colorscheme form wallpaper
-   use { "AlphaTechnolog/pywal.nvim", as = "pywal" }
    --make highlights color for any hex text
    use { "norcalli/nvim-colorizer.lua", as = "colorizer" }
    -- make opacity for vim
