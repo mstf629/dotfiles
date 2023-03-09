@@ -73,5 +73,5 @@
 *.color15:      COLOR15
 
 !primary and secondary colors
-*.primary:      COLOR11
+*.primary:      COLOR4
 *.secondary:    COLOR15

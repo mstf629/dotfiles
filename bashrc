@@ -4,7 +4,7 @@
 #
 #set nvim default editor
 export EDITOR="nvim"
-export BROWDSER="qutebrowser"
+export BROWSER="qutebrowser"
 
 #history settings
 export HISTCONTROL=ignoreboth

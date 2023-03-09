@@ -9,24 +9,26 @@ settings:
   bindings.commands:
     global:
       normal:
-        ;di: hint images spawn --userscript download_images {hint-url}
-        ;dv: hint all spawn --userscript download_v&a {hint-url}
-        ;O: hint all tab
-        ;o: hint all current
-        ;p: hint links spawn --userscript play_with_mpv {hint-url}
-        ;yi: hint images yank
-        ;yl: hint links yank
         ;D: hint all delete
+        ;O: hint all tab
         ;R: null
         ;T: null
         ;Y: null
         ;b: null
         ;d: null
+        ;di: hint images spawn --userscript download_images {hint-url}
+        ;dv: hint all spawn --userscript download_v&a {hint-url}
         ;f: null
-        ;h: null 
-        ;i: null 
+        ;h: null
+        ;i: null
+        ;o: hint all current
+        ;p: hint links spawn --userscript play_with_mpv {hint-url}
         ;r: null
         ;t: null
         ;y: null
+        ;yi: hint images yank
+        ;yl: hint links yank
   content.proxy:
     global: system
+  hints.auto_follow_timeout:
+    global: 0

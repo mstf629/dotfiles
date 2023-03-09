@@ -30,7 +30,7 @@ config.set("downloads.location.remember", True)
 #=========================hints settings===============================
 
 config.set("hints.auto_follow", "unique-match")
-config.set("hints.auto_follow_timeout", 5000)
+config.set("hints.auto_follow_timeout", 0)
 config.set("hints.chars", "asdfjkl;")
 config.set("hints.leave_on_load", True)
 config.set("hints.mode", "letter")
