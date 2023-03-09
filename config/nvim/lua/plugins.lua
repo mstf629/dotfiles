@@ -31,7 +31,7 @@ end
 packer.init {
    display = {
       open_fn = function()
-         return require("packer.util").float { border = "rounded" }
+         return require("packer.util").float({ border = "rounded" })
       end,
    },
 }
@@ -61,8 +61,4 @@ return packer.startup(function(use)
    -- snippets
    use { "L3MON4D3/LuaSnip" } --snippet engine
    use { "rafamadriz/friendly-snippets" } -- a bunch of snippets to use
-   -- lsp
-   use { "williamboman/nvim-lsp-installer" }
-   use { "neovim/nvim-lspconfig" }
-   use { "hrsh7th/cmp-nvim-lsp" }
 end)

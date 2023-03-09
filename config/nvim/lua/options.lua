@@ -20,7 +20,6 @@ local options = {
         swapfile=false,
         shiftwidth=3,
         termguicolors=true,
-        color
 }
 
 for opt,value in pairs(options) do

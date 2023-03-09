@@ -1403,7 +1403,7 @@ hi! link jsonString GruvboxFg1
 
 
 " Functions -------------------------------------------------------------------
-" Search Highlighting Cursor {{{
+" Search Highlighting Cursor {{{{{{
 
 function! GruvboxHlsShowCursor()
   call s:HL('Cursor', s:bg0, s:hls_cursor)
@@ -1413,6 +1413,6 @@ function! GruvboxHlsHideCursor()
   call s:HL('Cursor', s:none, s:none, s:inverse)
 endfunction
 
-" }}}
+" }}}}}}
 
-" vim: set sw=2 ts=2 sts=2 et tw=80 ft=vim fdm=marker:
+" vim: set sw=2 ts=2 sts=2 et tw=80 ft=vim fdm=marker:{{{}}}

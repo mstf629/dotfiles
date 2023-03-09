@@ -1,5 +1,6 @@
 let g:netrw_dirhistmax  =10
-let g:netrw_dirhistcnt =2
+let g:netrw_dirhistcnt =3
+let g:netrw_dirhist_3='/home/mustafa/repos/dotfiles/vim'
 let g:netrw_dirhist_2='/home/mustafa/.config/nvim'
 let g:netrw_dirhist_1='/home/mustafa/mountpoint/boot'
 let g:netrw_dirhist_0='/home/mustafa/repos/dotfiles/vim'
@@ -9,4 +10,3 @@ let g:netrw_dirhist_7='/etc/sysctl.d'
 let g:netrw_dirhist_6='/home/mustafa/.config/cmus/playlists'
 let g:netrw_dirhist_5='/home/mustafa/repos/dotfiles/config/qtile/settings'
 let g:netrw_dirhist_4='/usr/share/vim/vim90'
-let g:netrw_dirhist_3='/usr/share/vim'
