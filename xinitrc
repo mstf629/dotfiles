@@ -1,6 +1,7 @@
 ~/.fehbg &
 compton &
 
+redshift -O 2500
 
 if [ -e $HOME/scripts/keyboard ];then
    $HOME/scripts/keyboard & 

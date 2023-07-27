@@ -1,39 +1,39 @@
 ! special
-#define FOREGROUND    #EBDBB2
-#define BACKGROUND    #0b0b0b
-#define CURSORCOLOR   #d9d9d9
-                             
-!define BLACK                
-#define COLOR0        #282828 
-#define COLOR8        #928374 
-                             
-!define RED                  
-#define COLOR1        #CC241D 
-#define COLOR9        #FB4934 
-                             
-!define GREEN                
-#define COLOR2        #98971A
-#define COLOR10       #B8BB26  
-                             
-!define YELLOW               
-#define COLOR3        #D79921 
-#define COLOR11       #FABD2F 
-                             
-!define BLUE                 
-#define COLOR4        #458588
-#define COLOR12       #83A598 
-                            
-!define MAGENTA             
-#define COLOR5        #B16286 
-#define COLOR13       #D3869B 
-                            
-!define CYAN                
-#define COLOR6        #689D6A 
-#define COLOR14       #8EC07C 
-                            
-!define WHITE               
-#define COLOR7        #A89984
-#define COLOR15       #EBDBB2
+#define FOREGROUND    #c0c0c0
+#define BACKGROUND    #121212
+#define CURSORCOLOR   #c0c0c0
+                      
+!define BLACK         
+#define COLOR0        #080808
+#define COLOR8        #36393f
+                      
+!define RED           
+#define COLOR1        #515978
+#define COLOR9        #778099
+                      
+!define GREEN         
+#define COLOR2        #3ea28d
+#define COLOR10       #71c4ba  
+                      
+!define YELLOW        
+#define COLOR3        #4dc5ce
+#define COLOR11       #5e767f
+                      
+!define BLUE          
+#define COLOR4        #6ea2a5
+#define COLOR12       #6abdc1
+                      
+!define MAGENTA       
+#define COLOR5        #a8a8a8
+#define COLOR13       #4e4d80
+                      
+!define CYAN          
+#define COLOR6        #558188
+#define COLOR14       #4fc8ce
+                      
+!define WHITE         
+#define COLOR7        #c0c0c0
+#define COLOR15       #a6a8aa
 
 ! special
 *.foreground:   FOREGROUND
