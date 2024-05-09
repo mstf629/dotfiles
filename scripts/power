@@ -1,0 +1,20 @@
+#!/bin/bash
+
+function powermenu {
+	options="cancel\nshutdown\nreboot\nsleep\nexit"
+	selected=$(echo -e $options | dmenu)
+	if [[ $selected =  "shutdown" ]]; then
+		poweroff 
+	elif [[ $selected = "reboot" ]]; then
+		reboot
+	elif [[ $selected = "hibernate" ]]; then
+		i3lock -c 080808 systemctl suspend 
+	elif [[ $selected = "cancel" ]]; then
+		return
+	elif [[ $selected = "exit" ]]; then
+     pkill i3
+	fi
+}
+
+
+powermenu
