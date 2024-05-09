@@ -1,0 +1,10 @@
+[Scheme]
+Name=fugu
+ColorForeground=#c0c0c0
+ColorBackground=#121212
+ColorCursor= #c0c0c0
+TabActivityColor=#dc322f
+ColorPalette=#080808;#515978;#3ea28d;#4dc5ce;#6ea2a5;#a8a8a8;#558188;#c0c0c0;#36393f;#778099;#71c4ba;#5e767f;#6abdc1;#4e4d80;#4fc8ce;#a6a8aa
+ColorBold=#93a1a1
+ColorBoldUseDefault=FALSE
+

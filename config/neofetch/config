@@ -3,6 +3,7 @@ package_managers="on"
 shell_version="off"
 uptime_shorthand="tiny"
 
+
 print_info() {
     info "  host" title 
     info underline

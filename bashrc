@@ -5,6 +5,7 @@
 #set nvim default editor
 export EDITOR="nvim"
 export BROWSER="qutebrowser"
+export wiki_browser="qutebrowser"
 
 #history settings
 export HISTCONTROL=ignoreboth
@@ -28,6 +29,8 @@ shopt -s cdspell
 #display update
 shopt -s checkwinsize
 #==========ALIASES==========
+#offline archwiki
+alias wiki='wiki-search-html'
 #cd 
 alias i3c='cd $i3c'
 alias ..='cd ../'
@@ -43,8 +46,8 @@ alias free='free -h'
 alias df='df -h ' 
 #ls stuff
 alias ls='exa --color=auto' 
-alias lss='exa -l --color=auto --group-directories-first' 
-alias lssa='exa -la --color=auto --group-directories-first' 
+alias ll='exa --icons -l --color=auto --group-directories-first' 
+alias lla='exa -la --color=auto --group-directories-first' 
 #grep pacman ip color
 alias ip="ip --color=auto"
 alias pacman='pacman --color=auto' #set color for pacman
@@ -81,4 +84,4 @@ _ps1() {
                PS1="${_p[lb]}${_p[t]}${_p[rb]}${_p[ar]} ${_p[w]} ${_p[d]} "
         fi
 }
-
+alias tgpt='tgpt -i --provider phind'

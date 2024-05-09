@@ -25,7 +25,7 @@ window:
   #decorations: full
 
   # Background opacity
-  opacity: 0.87
+  opacity: 0.50
 
   # Startup Mode (changes require restart)
   #
@@ -62,7 +62,7 @@ font:
   normal:
     Default:
        - (macOS) Menlo
-       - (Linux/BSD) monospace
+       - (Linux/BSD) Hack Nerd Font Italic 
        - (Windows) Consolas
     family: monospace
 
@@ -98,37 +98,37 @@ colors:
   # Allowed values are CellForeground/CellBackground, which reference the
   # affected cell, or hexadecimal colors like #ff00ff.
   selection:
-    text: CellBackground
-    background: CellForeground
-
-  # Normal colors
-  #normal:
-  #  black:   '#1d1f21' 
-  #  red:     '#cc6666'
-  #  green:   '#b5bd68'
-  #  yellow:  '#f0c674'
-  #  blue:    '#81a2be'
-  #  magenta: '#b294bb'
-  #  cyan:    '#8abeb7'
-  #  white:   '#c5c8c6'
-
-  # Bright colors
-  #bright:
-  #  black:   '#666666'
-  #  red:     '#d54e53'
-  #  green:   '#b9ca4a'
-  #  yellow:  '#e7c547'
-  #  blue:    '#7aa6da'
-  #  magenta: '#c397d8'
-  #  cyan:    '#70c0b1'
-  #  white:   '#eaeaea'
-
-  # Dim colors
-  #
-  # If the dim colors are not set, they will be calculated automatically based
-  # on the `normal` colors.
-  #dim:
-  #  black:   '#131415'
+    text: CellBackground                                                                           
+    background: CellForeground                                                            
+                                                                                          
+  # Normal colors                                                                         
+  normal:                                                                                
+    black:   '#080808'                                                                   
+    red:     '#515978'                                                                   
+    green:   '#3ea28d'                                                                   
+    yellow:  '#4dc5ce'                                                                   
+    blue:    '#6ea2a5'                                                                   
+    magenta: '#a8a8a8'                                                                   
+    cyan:    '#558188'                                                                   
+    white:   '#c0c0c0'                                                                   
+                                                                                          
+  # Bright colors                                                                         
+  bright:                                                                                
+    black:   '#36393f'                                                                   
+    red:     '#778099'                                                                   
+    green:   '#71c4ba'                                                                   
+    yellow:  '#5e767f'                                                                   
+    blue:    '#6abdc1'                                                                   
+    magenta: '#4e4d80'                                                                   
+    cyan:    '#4fc8ce'                                                                   
+    white:   '#a6a8aa'                                                                   
+                                                                                          
+  # Dim colors                                                                            
+  #                                                                                       
+  # If the dim colors are not set, they will be calculated automatically based            
+  # on the `normal` colors.                                                               
+  #dim:                                                                                   
+  #  black:   '#131415'                                                                   
   #  red:     '#864343'
   #  green:   '#777c44'
   #  yellow:  '#9e824c'
@@ -714,3 +714,37 @@ colors:
 
   # Highlight window damage information.
   #highlight_damage: false
+  #
+
+
+
+
+
+
+
+
+
+
+
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

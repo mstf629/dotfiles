@@ -28,7 +28,16 @@ settings:
         ;y: null
         ;yi: hint images yank
         ;yl: hint links yank
+  content.javascript.can_access_clipboard:
+    global: true
+  content.javascript.enabled:
+    global: true
   content.proxy:
     global: system
   hints.auto_follow_timeout:
     global: 0
+  url.default_page:
+    global: https://start.duckduckgo.com/
+  url.searchengines:
+    global:
+      DEFAULT: https://duckduckgo.com/?q={}
